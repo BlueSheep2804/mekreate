@@ -22,11 +22,11 @@ object ModInfo {
     const val parchment_minecraft_version = minecraft_version
     const val parchment_mappings_version = "2024.11.17"
 
-    const val mod_id = "examplemod"
-    const val mod_name = "Example Mod"
-    const val mod_license = "All Rights Reserved"
+    const val mod_id = "mekcre"
+    const val mod_name = "Mekanism x Create"
+    const val mod_license = "MIT"
     const val mod_version = "1.0.0"
-    const val mod_group_id = "dev.bluesheep.examplemod"
+    const val mod_group_id = "dev.bluesheep.mekcre"
 
     const val curseforge_project_id = ""
     const val modrinth_project_id = ""

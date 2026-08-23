@@ -1,4 +1,4 @@
-package dev.bluesheep.examplemod
+package dev.bluesheep.mekcre
 
 import com.mojang.logging.LogUtils
 import net.minecraft.resources.ResourceLocation
@@ -8,10 +8,10 @@ import net.neoforged.fml.common.Mod
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
 import org.slf4j.Logger
 
-@Mod(ExampleMod.MODID)
-@EventBusSubscriber(modid = ExampleMod.MODID)
-object ExampleMod {
-    const val MODID: String = "examplemod"
+@Mod(MekCreMod.MODID)
+@EventBusSubscriber(modid = MekCreMod.MODID)
+object MekCreMod {
+    const val MODID: String = "mekcre"
     val LOGGER: Logger = LogUtils.getLogger()
 
     @SubscribeEvent
