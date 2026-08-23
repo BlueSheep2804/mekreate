@@ -30,6 +30,12 @@ object ModInfo {
 
     const val curseforge_project_id = ""
     const val modrinth_project_id = ""
+
+    const val mekanism_version = "10.7.19.85"
+    const val create_version = "6.0.10-280"
+    const val ponder_version = "1.0.82"
+    const val flywheel_version = "1.0.6"
+    const val registrate_version = "MC1.21-1.3.0+67"
 }
 
 fun getProperty(name: String): String? {
@@ -142,6 +148,36 @@ repositories {
         }
     }
     maven {
+        name = "ModMaven"
+        url = uri("https://modmaven.dev/")
+        content {
+            includeGroup("mekanism")
+        }
+    }
+    maven {
+        name = "Create"
+        url = uri("https://maven.createmod.net")
+        content {
+            includeGroup("com.simibubi.create")
+            includeGroup("net.createmod.ponder")
+            includeGroup("dev.engine-room.flywheel")
+        }
+    }
+    maven {
+        name = "Registrate"
+        url = uri("https://maven.ithundxr.dev/snapshots")
+        content {
+            includeGroup("com.tterrag.registrate")
+        }
+    }
+    maven {
+        name = "CurseMaven"
+        url = uri("https://cursemaven.com")
+        content {
+            includeGroup("curse.maven")
+        }
+    }
+    maven {
         name = "Modrinth"
         url = uri("https://api.modrinth.com/maven")
         content {
@@ -152,6 +188,15 @@ repositories {
 
 dependencies {
     implementation("thedarkcolour:kotlinforforge-neoforge:5.9.0")
+
+    implementation("mekanism:Mekanism:${ModInfo.minecraft_version}-${ModInfo.mekanism_version}:all")
+    implementation("curse.maven:mekanism-addon-library-1607060:8694606")
+
+    implementation("com.simibubi.create:create-${ModInfo.minecraft_version}:${ModInfo.create_version}:slim") { isTransitive = false }
+    implementation("net.createmod.ponder:ponder-neoforge:${ModInfo.ponder_version}+mc${ModInfo.minecraft_version}")
+    compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${ModInfo.minecraft_version}:${ModInfo.flywheel_version}")
+    runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${ModInfo.minecraft_version}:${ModInfo.flywheel_version}")
+    implementation("com.tterrag.registrate:Registrate:${ModInfo.registrate_version}")
 
     runtimeOnly("maven.modrinth:ferrite-core:x7kQWVju")
     runtimeOnly("maven.modrinth:jei:UJRXzDfp")
