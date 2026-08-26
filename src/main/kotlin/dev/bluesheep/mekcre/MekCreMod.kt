@@ -1,6 +1,7 @@
 package dev.bluesheep.mekcre
 
 import com.mojang.logging.LogUtils
+import dev.bluesheep.mekcre.datagen.*
 import dev.bluesheep.mekcre.registry.MekCreCreativeTabs
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.registry.MekCreRecipeTypes
@@ -9,6 +10,7 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.common.Mod
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
+import net.neoforged.neoforge.data.event.GatherDataEvent
 import org.slf4j.Logger
 import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 
@@ -26,6 +28,16 @@ object MekCreMod {
 
     @SubscribeEvent
     fun commonSetup(event: FMLCommonSetupEvent) {}
+
+    @SubscribeEvent
+    fun gatherData(event: GatherDataEvent) {
+        val packOutput = event.generator.packOutput
+        event.addProvider(MekCreBlockModelProvider(packOutput, event.existingFileHelper))
+        event.addProvider(MekCreItemModelProvider(packOutput, event.existingFileHelper))
+        event.addProvider(MekCreLanguageProvider(packOutput))
+        event.addProvider(MekCreBlockTagsProvider(packOutput, event.lookupProvider, event.existingFileHelper))
+        event.addProvider(MekCreLootTableProvider(packOutput, event.lookupProvider))
+    }
 
     fun rl(path: String): ResourceLocation {
         return ResourceLocation.fromNamespaceAndPath(MODID, path)
