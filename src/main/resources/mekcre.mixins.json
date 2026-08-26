@@ -3,7 +3,9 @@
   "package": "dev.bluesheep.mekcre.mixin",
   "compatibilityLevel": "JAVA_21",
   "refmap": "mekcre.refmap.json",
-  "mixins": [],
+  "mixins": [
+    "OutputHelperAccessor"
+  ],
   "injectors": {
     "defaultRequire": 1
   },

@@ -36,6 +36,7 @@ object ModInfo {
     const val ponder_version = "1.0.82"
     const val flywheel_version = "1.0.6"
     const val registrate_version = "MC1.21-1.3.0+67"
+    const val jei_version = "19.27.0.336"
 }
 
 fun getProperty(name: String): String? {
@@ -152,6 +153,7 @@ repositories {
         url = uri("https://modmaven.dev/")
         content {
             includeGroup("mekanism")
+            includeGroup("mezz.jei")
         }
     }
     maven {
@@ -198,8 +200,10 @@ dependencies {
     runtimeOnly("dev.engine-room.flywheel:flywheel-neoforge-${ModInfo.minecraft_version}:${ModInfo.flywheel_version}")
     implementation("com.tterrag.registrate:Registrate:${ModInfo.registrate_version}")
 
+    compileOnly("mezz.jei:jei-${ModInfo.minecraft_version}-neoforge-api:${ModInfo.jei_version}")
+    runtimeOnly("mezz.jei:jei-${ModInfo.minecraft_version}-neoforge:${ModInfo.jei_version}")
+
     runtimeOnly("maven.modrinth:ferrite-core:x7kQWVju")
-    runtimeOnly("maven.modrinth:jei:UJRXzDfp")
 }
 
 var generateModMetadata = tasks.register<ProcessResources>("generateModMetadata") {

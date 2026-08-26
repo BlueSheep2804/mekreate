@@ -36,5 +36,23 @@ config="${mod_id}.mixins.json"
     ordering="NONE"
     side="BOTH"
 
+[[dependencies.${mod_id}]]
+    modId="mekanism"
+    type="required"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="mek_addon_lib"
+    type="required"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="create"
+    type="required"
+    ordering="AFTER"
+    side="BOTH"
+
 #[features.${mod_id}]
 #openGLVersion="[3.2,)"
