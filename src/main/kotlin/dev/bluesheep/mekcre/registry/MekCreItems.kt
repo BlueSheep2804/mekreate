@@ -1,12 +1,23 @@
 package dev.bluesheep.mekcre.registry
 
-import dev.bluesheep.mekcre.MekCreMod
-import net.minecraft.world.item.BlockItem
-import net.neoforged.neoforge.registries.DeferredItem
-import net.neoforged.neoforge.registries.DeferredRegister
+import com.tterrag.registrate.util.entry.ItemEntry
+import dev.bluesheep.mekcre.MekCreMod.REGISTRATE
+import dev.bluesheep.mekcre.MekCreMod.rlCommon
+import net.minecraft.core.registries.Registries
+import net.minecraft.tags.TagKey
+import net.minecraft.world.item.Item
 
 object MekCreItems {
-    val REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(MekCreMod.MODID)
+    val OSMIUM_SHEET: ItemEntry<Item> = REGISTRATE.item(
+        "osmium_sheet", ::Item
+    )
+        .tag(tagCommon("plates"))
+        .tag(tagCommon("plates/osmium"))
+        .register()
 
-    val MECHANICAL_INFUSER: DeferredItem<BlockItem> = REGISTRY.registerSimpleBlockItem(MekCreBlocks.MECHANICAL_INFUSER)
+    private fun tagCommon(tag: String): TagKey<Item> {
+        return TagKey.create(Registries.ITEM, rlCommon(tag))
+    }
+
+    fun register() {}
 }

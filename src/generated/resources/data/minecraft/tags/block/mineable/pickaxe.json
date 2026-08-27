@@ -1,6 +1,7 @@
 {
   "values": [
-    "mekcre:mekanical_press",
-    "mekcre:mechanical_infuser"
+    "mekcre:mechanical_infuser",
+    "mekcre:osmium_casing",
+    "mekcre:mekanical_press"
   ]
 }

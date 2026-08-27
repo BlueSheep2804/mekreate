@@ -28,11 +28,6 @@ class MekCreBlockModelProvider(
                     .texture("down", texturePath.withSuffix("_bottom"))
             )
         }
-
-        horizontalBlock(
-            MekCreBlocks.MECHANICAL_INFUSER.get(),
-            models().getExistingFile(modLoc("block/mechanical_infuser/block"))
-        )
     }
 
     private fun texturePath(resourceLocation: ResourceLocation): ResourceLocation {

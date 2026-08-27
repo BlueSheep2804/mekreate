@@ -1,6 +1,9 @@
 {
   "block.mekcre.mechanical_infuser": "Mechanical Infuser",
   "block.mekcre.mekanical_press": "Mekanical Press",
+  "block.mekcre.osmium_casing": "Osmium Casing",
   "container.mekcre.mekanical_press": "Mekanical Press",
-  "description.mekcre.mekanical_press": "A simple machine used for pressing items."
+  "description.mekcre.mekanical_press": "A simple machine used for pressing items.",
+  "item.mekcre.osmium_sheet": "Osmium Sheet",
+  "itemGroup.mekcre": "Mekanism x Create"
 }

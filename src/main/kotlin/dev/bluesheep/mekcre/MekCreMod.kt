@@ -2,6 +2,7 @@ package dev.bluesheep.mekcre
 
 import com.mojang.logging.LogUtils
 import com.simibubi.create.foundation.data.CreateRegistrate
+import com.tterrag.registrate.providers.ProviderType
 import dev.bluesheep.mekcre.blockentity.MechanicalInfuserBlockEntity
 import dev.bluesheep.mekcre.datagen.*
 import dev.bluesheep.mekcre.registry.MekCreBlockEntities
@@ -12,6 +13,7 @@ import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.registry.MekCreRecipeTypes
 import mekanism.common.capabilities.Capabilities
 import net.minecraft.resources.ResourceLocation
+import net.neoforged.bus.api.EventPriority
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.common.Mod
@@ -27,12 +29,13 @@ object MekCreMod {
     const val MODID: String = "mekcre"
     val LOGGER: Logger = LogUtils.getLogger()
     val REGISTRATE: CreateRegistrate = CreateRegistrate.create(MODID)
+        .defaultCreativeTab(MekCreCreativeTabs.TAB.key)
 
     init {
         REGISTRATE.registerEventListeners(MOD_BUS)
-        MekCreBlocks.REGISTRY.register(MOD_BUS)
+        MekCreBlocks.register()
         MekCreBlockEntities.register()
-        MekCreItems.REGISTRY.register(MOD_BUS)
+        MekCreItems.register()
         MekCreRecipeTypes.REGISTRY.register(MOD_BUS)
         MekCreMachines.REGISTRY.register(MOD_BUS)
         MekCreCreativeTabs.REGISTRY.register(MOD_BUS)
@@ -50,18 +53,27 @@ object MekCreMod {
         )
     }
 
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    fun gatherDataHighest(event: GatherDataEvent) {
+        REGISTRATE.addDataGenerator(ProviderType.BLOCK_TAGS, ::MekCreBlockTagsProvider)
+        REGISTRATE.addDataGenerator(ProviderType.LANG, ::MekCreLanguageProvider)
+    }
+
     @SubscribeEvent
     fun gatherData(event: GatherDataEvent) {
         val packOutput = event.generator.packOutput
+        event.addProvider(MekCreLootTableProvider(packOutput, event.lookupProvider))
+
         event.addProvider(MekCreBlockModelProvider(packOutput, event.existingFileHelper))
         event.addProvider(MekCreItemModelProvider(packOutput, event.existingFileHelper))
-        event.addProvider(MekCreLanguageProvider(packOutput))
-        event.addProvider(MekCreBlockTagsProvider(packOutput, event.lookupProvider, event.existingFileHelper))
-        event.addProvider(MekCreLootTableProvider(packOutput, event.lookupProvider))
     }
 
     fun rl(path: String): ResourceLocation {
         return ResourceLocation.fromNamespaceAndPath(MODID, path)
+    }
+
+    fun rlCommon(path: String): ResourceLocation {
+        return ResourceLocation.fromNamespaceAndPath("c", path)
     }
 
     fun rlCreate(path: String): ResourceLocation {
