@@ -2,6 +2,7 @@ package dev.bluesheep.mekcre.datagen
 
 import com.takenokoshi.mekaddonlib.registration.SimpleMachineRegistryObject
 import dev.bluesheep.mekcre.MekCreMod
+import dev.bluesheep.mekcre.registry.MekCreBlocks
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import net.minecraft.data.PackOutput
 import net.neoforged.neoforge.common.data.LanguageProvider
@@ -12,6 +13,10 @@ class MekCreLanguageProvider(output: PackOutput) : LanguageProvider(output, MekC
         MekCreMachines.REGISTRY.blockRegister.primaryEntries.forEach { machine ->
             addBlock(machine, format(machine.id.path))
             addContainer(machine, format(machine.id.path))
+        }
+
+        MekCreBlocks.REGISTRY.entries.forEach { block ->
+            addBlock(block, format(block.id.path))
         }
 
         addDescription(MekCreMachines.MEKANICAL_PRESS, "A simple machine used for pressing items.")

@@ -1,6 +1,7 @@
 package dev.bluesheep.mekcre.datagen
 
 import dev.bluesheep.mekcre.MekCreMod
+import dev.bluesheep.mekcre.registry.MekCreBlocks
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
@@ -22,5 +23,9 @@ class MekCreBlockTagsProvider(
     override fun addTags(p0: HolderLookup.Provider) {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
             .add(*MekCreMachines.REGISTRY.blockRegister.primaryEntries.map { it.value() }.toTypedArray())
+            .add(MekCreBlocks.MECHANICAL_INFUSER.get())
+
+        tag(BlockTags.MINEABLE_WITH_AXE)
+            .add(MekCreBlocks.MECHANICAL_INFUSER.get())
     }
 }

@@ -1,6 +1,7 @@
 package dev.bluesheep.mekcre.datagen
 
 import dev.bluesheep.mekcre.datagen.MekCreLootTableProvider.BlockProvider
+import dev.bluesheep.mekcre.registry.MekCreBlocks
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
@@ -31,13 +32,18 @@ class MekCreLootTableProvider(
         lookupProvider
     ) {
         override fun getKnownBlocks(): Iterable<Block?> {
-            return MekCreMachines.REGISTRY.blockRegister.primaryEntries.map { it.get() }
+            return listOf(
+                *MekCreMachines.REGISTRY.blockRegister.primaryEntries.map { it.get() }.toTypedArray(),
+                *MekCreBlocks.REGISTRY.entries.map { it.get() }.toTypedArray()
+            )
         }
 
         override fun generate() {
             MekCreMachines.REGISTRY.blockRegister.primaryEntries.forEach { machine ->
                 dropSelf(machine.get())
             }
+
+            dropSelf(MekCreBlocks.MECHANICAL_INFUSER.get())
         }
     }
 }

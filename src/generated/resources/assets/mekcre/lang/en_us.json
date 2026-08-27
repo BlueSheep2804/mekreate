@@ -1,4 +1,5 @@
 {
+  "block.mekcre.mechanical_infuser": "Mechanical Infuser",
   "block.mekcre.mekanical_press": "Mekanical Press",
   "container.mekcre.mekanical_press": "Mekanical Press",
   "description.mekcre.mekanical_press": "A simple machine used for pressing items."

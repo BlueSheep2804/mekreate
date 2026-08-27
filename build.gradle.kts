@@ -233,6 +233,7 @@ sourceSets["main"].resources {
 
     exclude("**/*.bbmodel")
     exclude("**/*.ase", "**/*.aseprite")
+    exclude("**/*.xcf")
     exclude("src/generated/**/.cache")
 }
 

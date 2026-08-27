@@ -1,6 +1,7 @@
 package dev.bluesheep.mekcre.datagen
 
 import dev.bluesheep.mekcre.MekCreMod
+import dev.bluesheep.mekcre.registry.MekCreBlocks
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceLocation
@@ -27,6 +28,11 @@ class MekCreBlockModelProvider(
                     .texture("down", texturePath.withSuffix("_bottom"))
             )
         }
+
+        horizontalBlock(
+            MekCreBlocks.MECHANICAL_INFUSER.get(),
+            models().getExistingFile(modLoc("block/mechanical_infuser/block"))
+        )
     }
 
     private fun texturePath(resourceLocation: ResourceLocation): ResourceLocation {

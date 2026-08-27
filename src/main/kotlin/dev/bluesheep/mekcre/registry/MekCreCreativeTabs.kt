@@ -15,6 +15,7 @@ object MekCreCreativeTabs {
             .icon { Items.DIRT.defaultInstance }
             .displayItems { parameters, output ->
                 MekCreMachines.REGISTRY.machines.forEach(output::accept)
+                MekCreItems.REGISTRY.entries.forEach { output.accept(it.get()) }
             }
             .build()
     }
