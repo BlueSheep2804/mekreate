@@ -16,6 +16,9 @@ class MekCreLanguageProvider(val provider: RegistrateLangProvider) {
         }
 
         addDescription(MekCreMachines.MEKANICAL_PRESS, "A simple machine used for pressing items.")
+
+        provider.add("mekcre.gui.goggles.infuser_info", "Mechanical Infuser Info:")
+        provider.add("mekcre.gui.goggles.infuser_info.chemical", "Chemical: %s")
     }
 
     private fun format(name: String): String {

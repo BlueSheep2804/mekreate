@@ -5,5 +5,7 @@
   "container.mekcre.mekanical_press": "Mekanical Press",
   "description.mekcre.mekanical_press": "A simple machine used for pressing items.",
   "item.mekcre.osmium_sheet": "Osmium Sheet",
-  "itemGroup.mekcre": "Mekanism x Create"
+  "itemGroup.mekcre": "Mekanism x Create",
+  "mekcre.gui.goggles.infuser_info": "Mechanical Infuser Info:",
+  "mekcre.gui.goggles.infuser_info.chemical": "Chemical: %s"
 }

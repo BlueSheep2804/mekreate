@@ -7,17 +7,23 @@ import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackH
 import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackHandlerBehaviour.TransportedResult
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
+import dev.bluesheep.mekcre.MekCreMod
 import mekanism.api.Action
 import mekanism.api.chemical.*
 import mekanism.api.recipes.ItemStackChemicalToItemStackRecipe
 import mekanism.api.recipes.MekanismRecipeTypes
 import mekanism.api.recipes.vanilla_input.SingleItemChemicalRecipeInput
+import mekanism.common.MekanismLang
+import mekanism.common.util.text.TextUtils
+import net.createmod.catnip.lang.LangBuilder
 import net.createmod.catnip.math.VecHelper
+import net.minecraft.ChatFormatting
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.particles.DustParticleOptions
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.chat.Component
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeHolder
@@ -167,6 +173,34 @@ class MechanicalInfuserBlockEntity(
 
         inputInfusionTank.setStackUnchecked(ChemicalStack.EMPTY)
         inputInfusionTank.deserializeNBT(registries, compound.getCompound("InputInfusionTank"))
+    }
+
+    override fun addToGoggleTooltip(tooltip: MutableList<Component>, isPlayerSneaking: Boolean): Boolean {
+        LangBuilder(MekCreMod.MODID)
+            .translate("gui.goggles.infuser_info")
+            .forGoggles(tooltip)
+
+        super.addToGoggleTooltip(tooltip, isPlayerSneaking)
+
+        tooltip.removeAt(1)
+
+        tooltip.add(Component.empty())
+
+        LangBuilder(MekCreMod.MODID)
+            .translate("gui.goggles.infuser_info.chemical", inputInfusionTank.stack.textComponent.copy().withStyle(ChatFormatting.GRAY))
+            .forGoggles(tooltip)
+
+        LangBuilder(MekCreMod.MODID)
+            .text(ChatFormatting.YELLOW, TextUtils.format(inputInfusionTank.stored))
+            .text(ChatFormatting.GRAY, " / ")
+            .add(
+                MekanismLang.GENERIC_MB.translate(
+                    TextUtils.format(inputInfusionTank.capacity)
+                ).withStyle(ChatFormatting.DARK_GRAY)
+            )
+            .forGoggles(tooltip, 1)
+
+        return true
     }
 
     fun calculateProcessingSpeed(speed: Float): Int {

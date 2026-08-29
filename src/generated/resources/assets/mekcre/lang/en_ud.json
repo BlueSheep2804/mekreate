@@ -5,5 +5,7 @@
   "container.mekcre.mekanical_press": "ssǝɹԀ ןɐɔıuɐʞǝW",
   "description.mekcre.mekanical_press": "˙sɯǝʇı buıssǝɹd ɹoɟ pǝsn ǝuıɥɔɐɯ ǝןdɯıs Ɐ",
   "item.mekcre.osmium_sheet": "ʇǝǝɥS ɯnıɯsO",
-  "itemGroup.mekcre": "ǝʇɐǝɹƆ x ɯsıuɐʞǝW"
+  "itemGroup.mekcre": "ǝʇɐǝɹƆ x ɯsıuɐʞǝW",
+  "mekcre.gui.goggles.infuser_info": ":oɟuI ɹǝsnɟuI ןɐɔıuɐɥɔǝW",
+  "mekcre.gui.goggles.infuser_info.chemical": "%s :ןɐɔıɯǝɥƆ"
 }
