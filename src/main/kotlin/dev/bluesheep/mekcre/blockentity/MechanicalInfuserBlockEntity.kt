@@ -7,6 +7,7 @@ import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackH
 import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackHandlerBehaviour.TransportedResult
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
+import mekanism.api.Action
 import mekanism.api.chemical.*
 import mekanism.api.recipes.ItemStackChemicalToItemStackRecipe
 import mekanism.api.recipes.MekanismRecipeTypes
@@ -19,6 +20,7 @@ import net.minecraft.core.particles.DustParticleOptions
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.Vec3
@@ -53,7 +55,9 @@ class MechanicalInfuserBlockEntity(
         } else listOf(null)
     }
 
-    override fun onContentsChanged() {}
+    override fun onContentsChanged() {
+        inputInfusionTank.onContentsChanged()
+    }
 
     override fun addBehaviours(behaviors: MutableList<BlockEntityBehaviour?>) {
         beltProcessing = BeltProcessingBehaviour(this)
@@ -67,10 +71,11 @@ class MechanicalInfuserBlockEntity(
         handler: TransportedItemStackHandlerBehaviour?
     ): ProcessingResult {
         if (isVirtual) return ProcessingResult.PASS
-        val recipe = getRecipe(transported.stack, inputInfusionTank.stack) ?: return ProcessingResult.PASS
+        val recipes = getRecipe(transported.stack)
+        if (recipes.isEmpty()) return ProcessingResult.PASS
         if (inputInfusionTank.isEmpty) return ProcessingResult.HOLD
-//        if (!recipe.get().getChemicalInput().test(inputInfusionTank.stack)) return ProcessingResult.PASS
-        processingTicks = -1
+        if (!recipes.any { it.chemicalInput.testType(inputInfusionTank.stack) }) return ProcessingResult.PASS
+
         return ProcessingResult.HOLD
     }
 
@@ -79,23 +84,31 @@ class MechanicalInfuserBlockEntity(
         handler: TransportedItemStackHandlerBehaviour
     ): ProcessingResult {
         if (processingTicks > 0) return ProcessingResult.HOLD
-        if (isVirtual) return ProcessingResult.PASS
-        val recipe = getRecipe(transported.stack, inputInfusionTank.stack) ?: return ProcessingResult.PASS
-        if (inputInfusionTank.isEmpty) return ProcessingResult.HOLD
+        var recipes = getRecipe(transported.stack)
+        if (recipes.isEmpty()) return ProcessingResult.PASS
 
         val infusionStack = inputInfusionTank.stack
-        if (!recipe.chemicalInput.test(infusionStack)) return ProcessingResult.HOLD
 
-        if (processingTicks == -1) {
+        if (inputInfusionTank.isEmpty) return ProcessingResult.HOLD
+        recipes = recipes.filter { it.chemicalInput.testType(infusionStack) }
+        if (recipes.isEmpty()) return ProcessingResult.PASS
+        if (recipes.all {
+            it.chemicalInput.getNeededAmount(infusionStack) > inputInfusionTank.stored
+        }) return ProcessingResult.HOLD
+
+        val recipe = getRecipe(transported.stack, infusionStack)
+        recipe ?: return ProcessingResult.PASS
+
+        if (processingTicks <= -1) {
             processingTicks = calculateProcessingSpeed()
             notifyUpdate()
             return ProcessingResult.HOLD
         }
 
-        val output: ItemStack = recipe.getOutput(transported.stack, infusionStack)
+        val output = recipe.getOutput(transported.stack, infusionStack)
         if (!output.isEmpty) {
             transported.clearFanProcessingData()
-            val outputList: MutableList<TransportedItemStack?> = ArrayList()
+            val outputList = mutableListOf<TransportedItemStack>()
             var held: TransportedItemStack? = null
             val result = transported.copy()
             result.stack = output
@@ -108,7 +121,7 @@ class MechanicalInfuserBlockEntity(
                 transported,
                 TransportedResult.convertToAndLeaveHeld(outputList, held)
             )
-            infusionStack.shrink(recipe.chemicalInput.getNeededAmount(infusionStack))
+            inputInfusionTank.shrinkStack(recipe.chemicalInput.getNeededAmount(infusionStack), Action.EXECUTE)
         }
 
         notifyUpdate()
@@ -124,7 +137,7 @@ class MechanicalInfuserBlockEntity(
             processingTicks--
         }
 
-        if (processingTicks < 16 && processingTicks > 0 && level!!.isClientSide) {
+        if (processingTicks in 1..<16 && level!!.isClientSide) {
             var vec = VecHelper.getCenterOf(worldPosition)
             vec = vec.subtract(0.0, 1.5, 0.0)
             val color = Vec3.fromRGB24(inputInfusionTank.stack.chemicalColorRepresentation).toVector3f()
@@ -143,13 +156,17 @@ class MechanicalInfuserBlockEntity(
     protected override fun write(compound: CompoundTag, registries: HolderLookup.Provider, clientPacket: Boolean) {
         compound.putInt("ProcessingTicks", processingTicks)
         compound.put("InputInfusionTank", inputInfusionTank.serializeNBT(registries))
+
         super.write(compound, registries, clientPacket)
     }
 
     protected override fun read(compound: CompoundTag, registries: HolderLookup.Provider, clientPacket: Boolean) {
-        processingTicks = compound.getInt("ProcessingTicks")
-        inputInfusionTank.deserializeNBT(registries, compound.getCompound("InputInfusionTank"))
         super.read(compound, registries, clientPacket)
+
+        processingTicks = compound.getInt("ProcessingTicks")
+
+        inputInfusionTank.setStackUnchecked(ChemicalStack.EMPTY)
+        inputInfusionTank.deserializeNBT(registries, compound.getCompound("InputInfusionTank"))
     }
 
     fun calculateProcessingSpeed(speed: Float): Int {
@@ -183,5 +200,12 @@ class MechanicalInfuserBlockEntity(
             SingleItemChemicalRecipeInput(inputItem, inputInfusionStack),
             level
         )?.getOrNull()?.value
+    }
+
+    private fun getRecipe(stack: ItemStack): List<ItemStackChemicalToItemStackRecipe> {
+        return level?.recipeManager
+            ?.getAllRecipesFor(metallurgicRecipeType)
+            ?.filter { it.value.itemInput.test(stack) }
+            ?.map(RecipeHolder<ItemStackChemicalToItemStackRecipe>::value) ?: emptyList()
     }
 }
