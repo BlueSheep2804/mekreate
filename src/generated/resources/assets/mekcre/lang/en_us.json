@@ -4,8 +4,11 @@
   "block.mekcre.osmium_casing": "Osmium Casing",
   "container.mekcre.mekanical_press": "Mekanical Press",
   "description.mekcre.mekanical_press": "A simple machine used for pressing items.",
+  "item.mekcre.incomplete_refined_glowstone": "Incomplete Refined Glowstone",
+  "item.mekcre.incomplete_refined_obsidian": "Incomplete Refined Obsidian",
   "item.mekcre.osmium_sheet": "Osmium Sheet",
   "itemGroup.mekcre": "Mekanism x Create",
   "mekcre.gui.goggles.infuser_info": "Mechanical Infuser Info:",
-  "mekcre.gui.goggles.infuser_info.chemical": "Chemical: %s"
+  "mekcre.gui.goggles.infuser_info.chemical": "Chemical: %s",
+  "mekcre.recipe.assembly.infuse_chemical": "Infuse %s"
 }

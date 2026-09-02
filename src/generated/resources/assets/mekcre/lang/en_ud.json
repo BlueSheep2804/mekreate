@@ -4,8 +4,11 @@
   "block.mekcre.osmium_casing": "buısɐƆ ɯnıɯsO",
   "container.mekcre.mekanical_press": "ssǝɹԀ ןɐɔıuɐʞǝW",
   "description.mekcre.mekanical_press": "˙sɯǝʇı buıssǝɹd ɹoɟ pǝsn ǝuıɥɔɐɯ ǝןdɯıs Ɐ",
+  "item.mekcre.incomplete_refined_glowstone": "ǝuoʇsʍoן⅁ pǝuıɟǝᴚ ǝʇǝןdɯoɔuI",
+  "item.mekcre.incomplete_refined_obsidian": "uɐıpısqO pǝuıɟǝᴚ ǝʇǝןdɯoɔuI",
   "item.mekcre.osmium_sheet": "ʇǝǝɥS ɯnıɯsO",
   "itemGroup.mekcre": "ǝʇɐǝɹƆ x ɯsıuɐʞǝW",
   "mekcre.gui.goggles.infuser_info": ":oɟuI ɹǝsnɟuI ןɐɔıuɐɥɔǝW",
-  "mekcre.gui.goggles.infuser_info.chemical": "%s :ןɐɔıɯǝɥƆ"
+  "mekcre.gui.goggles.infuser_info.chemical": "%s :ןɐɔıɯǝɥƆ",
+  "mekcre.recipe.assembly.infuse_chemical": "%s ǝsnɟuI"
 }

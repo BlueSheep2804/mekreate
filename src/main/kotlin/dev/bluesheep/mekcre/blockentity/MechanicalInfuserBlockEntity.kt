@@ -6,12 +6,16 @@ import com.simibubi.create.content.kinetics.belt.behaviour.BeltProcessingBehavio
 import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackHandlerBehaviour
 import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackHandlerBehaviour.TransportedResult
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack
+import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import dev.bluesheep.mekcre.MekCreMod
+import dev.bluesheep.mekcre.recipe.create.InfusingRecipe
+import dev.bluesheep.mekcre.registry.MekCreRecipeTypes
 import mekanism.api.Action
 import mekanism.api.chemical.*
 import mekanism.api.recipes.ItemStackChemicalToItemStackRecipe
 import mekanism.api.recipes.MekanismRecipeTypes
+import mekanism.api.recipes.ingredients.ChemicalStackIngredient
 import mekanism.api.recipes.vanilla_input.SingleItemChemicalRecipeInput
 import mekanism.common.MekanismLang
 import mekanism.common.util.text.TextUtils
@@ -26,10 +30,13 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.Vec3
+import net.neoforged.neoforge.common.crafting.SizedIngredient
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 import kotlin.math.abs
 
@@ -80,7 +87,7 @@ class MechanicalInfuserBlockEntity(
         val recipes = getRecipe(transported.stack)
         if (recipes.isEmpty()) return ProcessingResult.PASS
         if (inputInfusionTank.isEmpty) return ProcessingResult.HOLD
-        if (!recipes.any { it.chemicalInput.testType(inputInfusionTank.stack) }) return ProcessingResult.PASS
+        if (!recipes.any { it.inputChemical.testType(inputInfusionTank.stack) }) return ProcessingResult.PASS
 
         return ProcessingResult.HOLD
     }
@@ -96,10 +103,10 @@ class MechanicalInfuserBlockEntity(
         val infusionStack = inputInfusionTank.stack
 
         if (inputInfusionTank.isEmpty) return ProcessingResult.HOLD
-        recipes = recipes.filter { it.chemicalInput.testType(infusionStack) }
+        recipes = recipes.filter { it.inputChemical.testType(infusionStack) }
         if (recipes.isEmpty()) return ProcessingResult.PASS
         if (recipes.all {
-            it.chemicalInput.getNeededAmount(infusionStack) > inputInfusionTank.stored
+            it.inputChemical.getNeededAmount(infusionStack) > inputInfusionTank.stored
         }) return ProcessingResult.HOLD
 
         val recipe = getRecipe(transported.stack, infusionStack)
@@ -111,7 +118,11 @@ class MechanicalInfuserBlockEntity(
             return ProcessingResult.HOLD
         }
 
-        val output = recipe.getOutput(transported.stack, infusionStack)
+        val output = if (recipe.recipe is InfusingRecipe) {
+            recipe.recipe.rollResults(level!!.random).first()
+        } else {
+            recipe.output
+        }
         if (!output.isEmpty) {
             transported.clearFanProcessingData()
             val outputList = mutableListOf<TransportedItemStack>()
@@ -120,14 +131,14 @@ class MechanicalInfuserBlockEntity(
             result.stack = output
             if (!transported.stack.isEmpty) {
                 held = transported.copy()
-                held.stack.shrink(recipe.itemInput.getNeededAmount(held.stack).toInt())
+                held.stack.shrink(recipe.inputItem.count())
             }
             outputList.add(result)
             handler.handleProcessingOnItem(
                 transported,
                 TransportedResult.convertToAndLeaveHeld(outputList, held)
             )
-            inputInfusionTank.shrinkStack(recipe.chemicalInput.getNeededAmount(infusionStack), Action.EXECUTE)
+            inputInfusionTank.shrinkStack(recipe.inputChemical.getNeededAmount(infusionStack), Action.EXECUTE)
         }
 
         notifyUpdate()
@@ -228,18 +239,74 @@ class MechanicalInfuserBlockEntity(
     private fun getRecipe(
         inputItem: ItemStack,
         inputInfusionStack: ChemicalStack
-    ): ItemStackChemicalToItemStackRecipe? {
-        return level?.recipeManager?.getRecipeFor(
-            metallurgicRecipeType,
-            SingleItemChemicalRecipeInput(inputItem, inputInfusionStack),
-            level
-        )?.getOrNull()?.value
+    ): RecipeData? {
+        val createRecipe = RecipeData.fromCreate(
+            SequencedAssemblyRecipe.getRecipe(
+                level,
+                inputItem,
+                MekCreRecipeTypes.INFUSING,
+                InfusingRecipe::class.java
+            )
+        )
+        if (createRecipe != null) {
+            return createRecipe
+        }
+
+        return RecipeData.fromMekanism(
+            level?.recipeManager?.getRecipeFor(
+                metallurgicRecipeType,
+                SingleItemChemicalRecipeInput(inputItem, inputInfusionStack),
+                level
+            )?.getOrNull()?.value
+        )
     }
 
-    private fun getRecipe(stack: ItemStack): List<ItemStackChemicalToItemStackRecipe> {
+    private fun getRecipe(stack: ItemStack): List<RecipeData> {
+        val createRecipe = RecipeData.fromCreate(
+            SequencedAssemblyRecipe.getRecipe(
+                level,
+                stack,
+                MekCreRecipeTypes.INFUSING,
+                InfusingRecipe::class.java
+            )
+        )
+        if (createRecipe != null) {
+            return listOf(createRecipe)
+        }
+
         return level?.recipeManager
             ?.getAllRecipesFor(metallurgicRecipeType)
             ?.filter { it.value.itemInput.test(stack) }
-            ?.map(RecipeHolder<ItemStackChemicalToItemStackRecipe>::value) ?: emptyList()
+            ?.map { RecipeData.fromMekanism(it.value)!! } ?: emptyList()
+    }
+
+    private data class RecipeData(
+        val recipe: Recipe<*>,
+        val inputItem: SizedIngredient,
+        val inputChemical: ChemicalStackIngredient,
+        val output: ItemStack
+    ) {
+        companion object {
+            fun fromMekanism(recipe: ItemStackChemicalToItemStackRecipe?): RecipeData? {
+                recipe ?: return null
+                return RecipeData(
+                    recipe,
+                    recipe.itemInput.ingredient(),
+                    recipe.chemicalInput,
+                    recipe.getOutput(null, null)
+                )
+            }
+
+            fun fromCreate(recipe: Optional<RecipeHolder<InfusingRecipe>>): RecipeData? {
+                if (recipe.isEmpty) return null
+                val recipe = recipe.get().value
+                return RecipeData(
+                    recipe,
+                    SizedIngredient(recipe.ingredients.first(), 1),
+                    recipe.chemicalIngredient,
+                    recipe.getResultItem(null)
+                )
+            }
+        }
     }
 }

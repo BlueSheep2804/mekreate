@@ -1,0 +1,60 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "mekanism:dust_refined_obsidian"
+  },
+  "loops": 2,
+  "results": [
+    {
+      "id": "mekanism:ingot_refined_obsidian"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "mekcre:infusing",
+      "chemical": {
+        "amount": 100,
+        "chemical": "mekanism:osmium"
+      },
+      "ingredients": [
+        {
+          "item": "mekcre:incomplete_refined_obsidian"
+        }
+      ],
+      "results": [
+        {
+          "id": "mekcre:incomplete_refined_obsidian"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "mekcre:incomplete_refined_obsidian"
+        }
+      ],
+      "results": [
+        {
+          "id": "mekcre:incomplete_refined_obsidian"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "mekcre:incomplete_refined_obsidian"
+        }
+      ],
+      "results": [
+        {
+          "id": "mekcre:incomplete_refined_obsidian"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "mekcre:incomplete_refined_obsidian"
+  }
+}

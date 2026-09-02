@@ -1,0 +1,60 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "tag": "c:dusts/glowstone"
+  },
+  "loops": 2,
+  "results": [
+    {
+      "id": "mekanism:ingot_refined_glowstone"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "mekcre:infusing",
+      "chemical": {
+        "amount": 100,
+        "chemical": "mekanism:osmium"
+      },
+      "ingredients": [
+        {
+          "item": "mekcre:incomplete_refined_glowstone"
+        }
+      ],
+      "results": [
+        {
+          "id": "mekcre:incomplete_refined_glowstone"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "mekcre:incomplete_refined_glowstone"
+        }
+      ],
+      "results": [
+        {
+          "id": "mekcre:incomplete_refined_glowstone"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "mekcre:incomplete_refined_glowstone"
+        }
+      ],
+      "results": [
+        {
+          "id": "mekcre:incomplete_refined_glowstone"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "mekcre:incomplete_refined_glowstone"
+  }
+}

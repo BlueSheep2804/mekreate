@@ -9,7 +9,7 @@ import com.simibubi.create.foundation.data.BuilderTransformers
 import com.simibubi.create.foundation.data.ModelGen.customItemModel
 import com.simibubi.create.foundation.data.TagGen.axeOrPickaxe
 import com.tterrag.registrate.util.entry.BlockEntry
-import dev.bluesheep.mekcre.MekCreMod
+import dev.bluesheep.mekcre.LocationUtil
 import dev.bluesheep.mekcre.MekCreMod.REGISTRATE
 import dev.bluesheep.mekcre.block.MechanicalInfuserBlock
 import net.minecraft.world.level.block.Blocks
@@ -36,8 +36,8 @@ object MekCreBlocks {
         .transform(BuilderTransformers.casing {
             CTSpriteShifter.getCT(
                 AllCTTypes.OMNIDIRECTIONAL,
-                MekCreMod.rl("block/osmium_casing"),
-                MekCreMod.rl("block/osmium_casing_connected")
+                LocationUtil.rl("block/osmium_casing"),
+                LocationUtil.rl("block/osmium_casing_connected")
             )
         })
         .register()

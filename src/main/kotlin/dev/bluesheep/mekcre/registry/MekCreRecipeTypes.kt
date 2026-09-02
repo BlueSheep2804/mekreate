@@ -1,11 +1,17 @@
 package dev.bluesheep.mekcre.registry
 
-import com.takenokoshi.mekaddonlib.registration.MekALRecipeTypeDeferredRegister
+import dev.bluesheep.mekcre.LocationUtil
 import dev.bluesheep.mekcre.MekCreMod
-import dev.bluesheep.mekcre.recipe.type.WrappedPressingRecipeType
+import dev.bluesheep.mekcre.recipe.create.InfusingRecipe
+import net.minecraft.core.registries.Registries
+import net.minecraft.world.item.crafting.RecipeType
+import net.neoforged.neoforge.registries.DeferredRegister
+import thedarkcolour.kotlinforforge.neoforge.forge.getValue
 
 object MekCreRecipeTypes {
-    val REGISTRY = MekALRecipeTypeDeferredRegister(MekCreMod.MODID)
+    val REGISTRY: DeferredRegister<RecipeType<*>> = DeferredRegister.create(Registries.RECIPE_TYPE, MekCreMod.MODID)
 
-    val PRESS = WrappedPressingRecipeType()
+    val INFUSING: RecipeType<InfusingRecipe> by REGISTRY.register("infusing") { ->
+        RecipeType.simple(LocationUtil.rl("infusing"))
+    }
 }

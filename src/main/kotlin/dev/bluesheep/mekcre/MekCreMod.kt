@@ -10,9 +10,10 @@ import dev.bluesheep.mekcre.registry.MekCreBlocks
 import dev.bluesheep.mekcre.registry.MekCreCreativeTabs
 import dev.bluesheep.mekcre.registry.MekCreItems
 import dev.bluesheep.mekcre.registry.MekCreMachines
+import dev.bluesheep.mekcre.registry.MekCreMekanismRecipeTypes
+import dev.bluesheep.mekcre.registry.MekCreRecipeSerializers
 import dev.bluesheep.mekcre.registry.MekCreRecipeTypes
 import mekanism.common.capabilities.Capabilities
-import net.minecraft.resources.ResourceLocation
 import net.neoforged.bus.api.EventPriority
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -36,7 +37,11 @@ object MekCreMod {
         MekCreBlocks.register()
         MekCreBlockEntities.register()
         MekCreItems.register()
+
         MekCreRecipeTypes.REGISTRY.register(MOD_BUS)
+        MekCreRecipeSerializers.REGISTRY.register(MOD_BUS)
+
+        MekCreMekanismRecipeTypes.REGISTRY.register(MOD_BUS)
         MekCreMachines.REGISTRY.register(MOD_BUS)
         MekCreCreativeTabs.REGISTRY.register(MOD_BUS)
     }
@@ -63,24 +68,10 @@ object MekCreMod {
     fun gatherData(event: GatherDataEvent) {
         val packOutput = event.generator.packOutput
         event.addProvider(MekCreLootTableProvider(packOutput, event.lookupProvider))
+        event.addProvider(MekCreRecipeProvider(packOutput, event.lookupProvider))
 
         event.addProvider(MekCreBlockModelProvider(packOutput, event.existingFileHelper))
         event.addProvider(MekCreItemModelProvider(packOutput, event.existingFileHelper))
     }
 
-    fun rl(path: String): ResourceLocation {
-        return ResourceLocation.fromNamespaceAndPath(MODID, path)
-    }
-
-    fun rlCommon(path: String): ResourceLocation {
-        return ResourceLocation.fromNamespaceAndPath("c", path)
-    }
-
-    fun rlCreate(path: String): ResourceLocation {
-        return ResourceLocation.fromNamespaceAndPath("create", path)
-    }
-
-    fun rlMekanism(path: String): ResourceLocation {
-        return ResourceLocation.fromNamespaceAndPath("mekanism", path)
-    }
 }

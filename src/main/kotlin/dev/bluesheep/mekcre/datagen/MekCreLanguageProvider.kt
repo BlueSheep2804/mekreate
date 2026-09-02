@@ -19,6 +19,7 @@ class MekCreLanguageProvider(val provider: RegistrateLangProvider) {
 
         provider.add("mekcre.gui.goggles.infuser_info", "Mechanical Infuser Info:")
         provider.add("mekcre.gui.goggles.infuser_info.chemical", "Chemical: %s")
+        provider.add("mekcre.recipe.assembly.infuse_chemical", "Infuse %s")
     }
 
     private fun format(name: String): String {

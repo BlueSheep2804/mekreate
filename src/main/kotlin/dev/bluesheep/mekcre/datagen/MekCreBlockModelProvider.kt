@@ -1,8 +1,8 @@
 package dev.bluesheep.mekcre.datagen
 
 import dev.bluesheep.mekcre.MekCreMod
-import dev.bluesheep.mekcre.registry.MekCreBlocks
 import dev.bluesheep.mekcre.registry.MekCreMachines
+import dev.bluesheep.mekcre.LocationUtil
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
@@ -21,7 +21,7 @@ class MekCreBlockModelProvider(
             val texturePath = texturePath(machine.id)
             horizontalBlock(
                 machine.get(),
-                models().withExistingParent(machine.registeredName, MekCreMod.rlMekanism("block/machine"))
+                models().withExistingParent(machine.registeredName, LocationUtil.rlMekanism("block/machine"))
                     .texture("sides", texturePath.withSuffix("_side"))
                     .texture("front", texturePath.withSuffix("_front"))
                     .texture("up", texturePath.withSuffix("_top"))

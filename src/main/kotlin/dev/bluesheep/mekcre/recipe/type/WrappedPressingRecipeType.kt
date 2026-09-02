@@ -4,7 +4,7 @@ import com.simibubi.create.AllRecipeTypes
 import com.simibubi.create.content.kinetics.press.PressingRecipe
 import com.takenokoshi.mekaddonlib.recipe.inputcache.MekALSingleInputRecipeCache
 import com.takenokoshi.mekaddonlib.recipe.type.MekALRecipeType
-import dev.bluesheep.mekcre.MekCreMod
+import dev.bluesheep.mekcre.LocationUtil
 import net.minecraft.core.RegistryAccess
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeHolder
@@ -16,7 +16,7 @@ class WrappedPressingRecipeType : MekALRecipeType<
         PressingRecipe,
         MekALSingleInputRecipeCache.MekALSingleItem<PressingRecipe>
         >(
-    MekCreMod.rl("wrapped_create_pressing"),
+    LocationUtil.rl("wrapped_create_pressing"),
     { type ->
         MekALSingleInputRecipeCache.MekALSingleItem(type) { recipe ->
             recipe.ingredients

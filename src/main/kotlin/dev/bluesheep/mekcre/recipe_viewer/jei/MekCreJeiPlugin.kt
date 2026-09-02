@@ -1,7 +1,7 @@
 package dev.bluesheep.mekcre.recipe_viewer.jei
 
-import dev.bluesheep.mekcre.MekCreMod
 import dev.bluesheep.mekcre.registry.MekCreMachines
+import dev.bluesheep.mekcre.LocationUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.registration.IRecipeCatalystRegistration
@@ -14,7 +14,7 @@ class MekCreJeiPlugin : IModPlugin {
     }
 
     override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration) {
-        registration.jeiHelpers.getRecipeType(MekCreMod.rlCreate("pressing"))
+        registration.jeiHelpers.getRecipeType(LocationUtil.rlCreate("pressing"))
             .ifPresent {
                 registration.addRecipeCatalyst(MekCreMachines.MEKANICAL_PRESS, it)
             }

@@ -6,7 +6,7 @@ import com.takenokoshi.mekaddonlib.recipe.cached.ICachedRecipe
 import com.takenokoshi.mekaddonlib.recipe.type.IMekALRecipeTypeProvider
 import dev.bluesheep.mekcre.recipe.PressingCachedRecipe
 import dev.bluesheep.mekcre.recipe.output.ProcessingOutputHandler
-import dev.bluesheep.mekcre.registry.MekCreRecipeTypes
+import dev.bluesheep.mekcre.registry.MekCreMekanismRecipeTypes
 import mekanism.api.IContentsListener
 import mekanism.api.energy.IEnergyContainer
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError
@@ -144,7 +144,7 @@ class MekanicalPressBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
         if (inputSlot.isEmpty) return null
 
         level ?: return null
-        return MekCreRecipeTypes.PRESS
+        return MekCreMekanismRecipeTypes.PRESS
             .inputCache
             .findFirstRecipe(level, inputSlot.stack)
     }
@@ -171,6 +171,6 @@ class MekanicalPressBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
     }
 
     override fun getRecipeType(): IMekALRecipeTypeProvider<*, PressingRecipe?, *> {
-        return MekCreRecipeTypes.PRESS
+        return MekCreMekanismRecipeTypes.PRESS
     }
 }
