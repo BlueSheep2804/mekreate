@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "mekcre.refmap.json",
   "mixins": [
+    "BlazeBurnerBlockEntityMixin",
     "OutputHelperAccessor"
   ],
   "injectors": {

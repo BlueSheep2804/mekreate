@@ -1,10 +1,12 @@
 package dev.bluesheep.mekcre
 
 import com.mojang.logging.LogUtils
+import com.simibubi.create.AllBlockEntityTypes
 import com.simibubi.create.foundation.data.CreateRegistrate
 import com.tterrag.registrate.providers.ProviderType
 import dev.bluesheep.mekcre.blockentity.MechanicalInfuserBlockEntity
 import dev.bluesheep.mekcre.datagen.*
+import dev.bluesheep.mekcre.registry.MekCreAttachmentTypes
 import dev.bluesheep.mekcre.registry.MekCreBlockEntities
 import dev.bluesheep.mekcre.registry.MekCreBlocks
 import dev.bluesheep.mekcre.registry.MekCreCreativeTabs
@@ -14,6 +16,7 @@ import dev.bluesheep.mekcre.registry.MekCreMekanismRecipeTypes
 import dev.bluesheep.mekcre.registry.MekCreRecipeSerializers
 import dev.bluesheep.mekcre.registry.MekCreRecipeTypes
 import mekanism.common.capabilities.Capabilities
+import mekanism.common.capabilities.heat.ITileHeatHandler
 import net.neoforged.bus.api.EventPriority
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -44,6 +47,7 @@ object MekCreMod {
         MekCreMekanismRecipeTypes.REGISTRY.register(MOD_BUS)
         MekCreMachines.REGISTRY.register(MOD_BUS)
         MekCreCreativeTabs.REGISTRY.register(MOD_BUS)
+        MekCreAttachmentTypes.REGISTRY.register(MOD_BUS)
     }
 
     @SubscribeEvent
@@ -56,6 +60,13 @@ object MekCreMod {
             MekCreBlockEntities.MECHANICAL_INFUSER.get(),
             MechanicalInfuserBlockEntity::capabilityProvider
         )
+
+        event.registerBlockEntity(
+            Capabilities.HEAT,
+            AllBlockEntityTypes.HEATER.get()
+        ) { blockEntity, direction ->
+            return@registerBlockEntity blockEntity as ITileHeatHandler
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

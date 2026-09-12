@@ -207,6 +207,8 @@ dependencies {
     runtimeOnly("mezz.jei:jei-${ModInfo.minecraft_version}-neoforge:${ModInfo.jei_version}")
 
     runtimeOnly("maven.modrinth:ferrite-core:x7kQWVju")
+    runtimeOnly("maven.modrinth:jade:eYz2YBGT")
+    runtimeOnly("maven.modrinth:jade-addons-forge:ZHjXkd1n")
 }
 
 var generateModMetadata = tasks.register<ProcessResources>("generateModMetadata") {
