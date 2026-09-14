@@ -20,10 +20,10 @@ object BlazeBurnerBlockEntityMixinImpl {
 
         when (blockEntity.heatLevelFromBlock) {
             HeatLevel.FADING, HeatLevel.KINDLED -> {
-                handler.handleHeat(240.0)  // TODO: Config
+                handler.handleHeat(200.0)  // TODO: Config
             }
             HeatLevel.SEETHING -> {
-                handler.handleHeat(2400.0)  // TODO: Config
+                handler.handleHeat(1200.0)  // TODO: Config
             }
             else -> {}
         }

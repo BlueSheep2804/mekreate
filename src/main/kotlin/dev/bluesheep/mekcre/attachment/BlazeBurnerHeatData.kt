@@ -7,9 +7,9 @@ import net.neoforged.neoforge.common.util.INBTSerializable
 
 class BlazeBurnerHeatData : INBTSerializable<CompoundTag> {
     val heatCapacitor: BasicHeatCapacitor = BasicHeatCapacitor.create(
-        100.0,
-        5.0,
-        100.0,
+        10.0,
+        8.0,
+        200.0,
         null
     ) {}
 
