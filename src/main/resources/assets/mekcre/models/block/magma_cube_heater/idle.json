@@ -1,0 +1,6 @@
+{
+  "parent": "mekcre:block/magma_cube_heater/base",
+  "textures": {
+    "tex": "mekcre:block/magma_cube_idle"
+  }
+}

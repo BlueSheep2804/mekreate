@@ -10,6 +10,10 @@ object LocationUtil {
         return ResourceLocation.fromNamespaceAndPath(MekCreMod.MODID, path)
     }
 
+    fun rlMinecraft(path: String): ResourceLocation {
+        return ResourceLocation.withDefaultNamespace(path)
+    }
+
     fun rlCommon(path: String): ResourceLocation {
         return ResourceLocation.fromNamespaceAndPath("c", path)
     }

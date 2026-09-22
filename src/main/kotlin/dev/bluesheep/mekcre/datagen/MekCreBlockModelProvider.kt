@@ -18,6 +18,7 @@ class MekCreBlockModelProvider(
 ) {
     override fun registerStatesAndModels() {
         MekCreMachines.REGISTRY.blockRegister.primaryEntries.forEach { machine ->
+            if (machine.`is`(modLoc("magma_cube_heater"))) return@forEach
             val texturePath = texturePath(machine.id)
             horizontalBlock(
                 machine.get(),
@@ -28,6 +29,12 @@ class MekCreBlockModelProvider(
                     .texture("down", texturePath.withSuffix("_bottom"))
             )
         }
+
+        horizontalBlock(
+            MekCreMachines.MAGMA_CUBE_HEATER.block.get(),
+            models().withExistingParent("magma_cube_heater", LocationUtil.rlCreate("block/blaze_burner/block"))
+                .renderType("cutout")
+        )
     }
 
     private fun texturePath(resourceLocation: ResourceLocation): ResourceLocation {

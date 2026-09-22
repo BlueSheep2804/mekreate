@@ -1,0 +1,454 @@
+{
+  "variants": {
+    "active=false,blaze=fading,facing=east,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=fading,facing=east,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=fading,facing=east,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=fading,facing=north,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=fading,facing=north,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=fading,facing=north,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=fading,facing=south,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=fading,facing=south,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=fading,facing=south,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=fading,facing=west,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=fading,facing=west,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=fading,facing=west,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=kindled,facing=east,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=kindled,facing=east,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=kindled,facing=east,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=kindled,facing=north,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=kindled,facing=north,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=kindled,facing=north,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=kindled,facing=south,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=kindled,facing=south,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=kindled,facing=south,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=kindled,facing=west,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=kindled,facing=west,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=kindled,facing=west,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=none,facing=east,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=none,facing=east,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=none,facing=east,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=none,facing=north,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=none,facing=north,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=none,facing=north,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=none,facing=south,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=none,facing=south,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=none,facing=south,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=none,facing=west,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=none,facing=west,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=none,facing=west,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=seething,facing=east,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=seething,facing=east,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=seething,facing=east,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=seething,facing=north,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=seething,facing=north,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=seething,facing=north,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=seething,facing=south,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=seething,facing=south,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=seething,facing=south,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=seething,facing=west,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=seething,facing=west,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=seething,facing=west,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=smouldering,facing=east,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=smouldering,facing=east,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=smouldering,facing=east,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=false,blaze=smouldering,facing=north,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=smouldering,facing=north,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=smouldering,facing=north,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=false,blaze=smouldering,facing=south,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=smouldering,facing=south,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=smouldering,facing=south,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=false,blaze=smouldering,facing=west,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=smouldering,facing=west,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=false,blaze=smouldering,facing=west,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=fading,facing=east,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=fading,facing=east,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=fading,facing=east,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=fading,facing=north,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=fading,facing=north,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=fading,facing=north,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=fading,facing=south,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=fading,facing=south,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=fading,facing=south,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=fading,facing=west,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=fading,facing=west,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=fading,facing=west,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=kindled,facing=east,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=kindled,facing=east,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=kindled,facing=east,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=kindled,facing=north,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=kindled,facing=north,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=kindled,facing=north,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=kindled,facing=south,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=kindled,facing=south,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=kindled,facing=south,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=kindled,facing=west,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=kindled,facing=west,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=kindled,facing=west,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=none,facing=east,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=none,facing=east,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=none,facing=east,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=none,facing=north,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=none,facing=north,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=none,facing=north,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=none,facing=south,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=none,facing=south,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=none,facing=south,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=none,facing=west,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=none,facing=west,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=none,facing=west,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=seething,facing=east,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=seething,facing=east,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=seething,facing=east,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=seething,facing=north,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=seething,facing=north,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=seething,facing=north,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=seething,facing=south,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=seething,facing=south,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=seething,facing=south,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=seething,facing=west,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=seething,facing=west,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=seething,facing=west,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=smouldering,facing=east,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=smouldering,facing=east,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=smouldering,facing=east,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 90
+    },
+    "active=true,blaze=smouldering,facing=north,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=smouldering,facing=north,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=smouldering,facing=north,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater"
+    },
+    "active=true,blaze=smouldering,facing=south,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=smouldering,facing=south,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=smouldering,facing=south,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 180
+    },
+    "active=true,blaze=smouldering,facing=west,fluid_logged=empty": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=smouldering,facing=west,fluid_logged=lava": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    },
+    "active=true,blaze=smouldering,facing=west,fluid_logged=water": {
+      "model": "mekcre:block/magma_cube_heater",
+      "y": 270
+    }
+  }
+}

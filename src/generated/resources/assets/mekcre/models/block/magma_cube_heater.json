@@ -1,0 +1,4 @@
+{
+  "parent": "create:block/blaze_burner/block",
+  "render_type": "minecraft:cutout"
+}
