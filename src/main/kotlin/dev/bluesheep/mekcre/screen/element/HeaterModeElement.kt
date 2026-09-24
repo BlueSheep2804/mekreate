@@ -2,6 +2,7 @@ package dev.bluesheep.mekcre.screen.element
 
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel
 import dev.bluesheep.mekcre.LocationUtil
+import dev.bluesheep.mekcre.MekCreLang
 import mekanism.client.gui.IGuiWrapper
 import mekanism.client.gui.element.GuiTexturedElement
 import net.minecraft.client.gui.GuiGraphics
@@ -41,13 +42,12 @@ class HeaterModeElement(gui: IGuiWrapper, x: Int, y: Int, val heatLevelSupplier:
     }
 
     private fun getHeatLevelComponent(): Component {
-        return Component.translatable(
-            "mekcre.gui.current_heat_level",
-            Component.translatable("mekcre.gui." + when (heatLevelSupplier.invoke()) {
-                HeatLevel.SEETHING -> "superheated"
-                HeatLevel.FADING, HeatLevel.KINDLED -> "heated"
-                else -> "idle"
-            })
+        return MekCreLang.HEAT_LEVEL_CURRENT.translate(
+            when (heatLevelSupplier.invoke()) {
+                HeatLevel.SEETHING -> MekCreLang.HEAT_LEVEL_SUPERHEATED
+                HeatLevel.FADING, HeatLevel.KINDLED -> MekCreLang.HEAT_LEVEL_HEATED
+                else -> MekCreLang.HEAT_LEVEL_IDLE
+            }
         )
     }
 }

@@ -2,6 +2,7 @@ package dev.bluesheep.mekcre.screen.element
 
 import com.simibubi.create.content.processing.recipe.HeatCondition
 import dev.bluesheep.mekcre.LocationUtil
+import dev.bluesheep.mekcre.MekCreLang
 import mekanism.client.gui.IGuiWrapper
 import mekanism.client.gui.element.button.MekanismImageButton
 import net.minecraft.client.gui.components.Tooltip
@@ -45,13 +46,12 @@ class HeaterModeButton(
     }
 
     private fun getHeatLevelComponent(): Component {
-        return Component.translatable(
-            "mekcre.gui.configured_heat_level",
-            Component.translatable("mekcre.gui." + when (heatLevelSupplier.invoke()) {
-                HeatCondition.HEATED -> "heated"
-                HeatCondition.SUPERHEATED -> "superheated"
-                else -> "idle"
-            })
+        return MekCreLang.HEAT_LEVEL_CONFIGURED.translate(
+            when (heatLevelSupplier.invoke()) {
+                HeatCondition.HEATED -> MekCreLang.HEAT_LEVEL_HEATED
+                HeatCondition.SUPERHEATED -> MekCreLang.HEAT_LEVEL_SUPERHEATED
+                else -> MekCreLang.HEAT_LEVEL_IDLE
+            }
         )
     }
 }

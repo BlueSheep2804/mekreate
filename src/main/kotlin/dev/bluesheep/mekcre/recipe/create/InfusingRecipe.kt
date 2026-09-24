@@ -4,6 +4,7 @@ import com.simibubi.create.compat.jei.category.sequencedAssembly.SequencedAssemb
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeParams
 import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe
 import com.simibubi.create.content.processing.sequenced.IAssemblyRecipe
+import dev.bluesheep.mekcre.MekCreLang
 import dev.bluesheep.mekcre.recipe_viewer.jei.InfusingSubCategory
 import dev.bluesheep.mekcre.registry.MekCreBlocks
 import mekanism.api.recipes.ingredients.ChemicalStackIngredient
@@ -38,7 +39,7 @@ class InfusingRecipe(
     }
 
     override fun getDescriptionForAssembly(): Component {
-        return Component.translatable("mekcre.recipe.assembly.infuse_chemical", chemicalIngredient.representations.first().textComponent)
+        return MekCreLang.ASSEMBLY_INFUSE_CHEMICAL.translate(chemicalIngredient.representations.first().textComponent)
     }
 
     override fun addRequiredMachines(list: MutableSet<ItemLike>) {

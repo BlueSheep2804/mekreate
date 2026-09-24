@@ -2,13 +2,15 @@ package dev.bluesheep.mekcre.datagen
 
 import com.takenokoshi.mekaddonlib.registration.SimpleMachineRegistryObject
 import com.tterrag.registrate.providers.RegistrateLangProvider
+import dev.bluesheep.mekcre.MekCreLang
 import dev.bluesheep.mekcre.MekCreMod.MODID
 import dev.bluesheep.mekcre.registry.MekCreMachines
+import mekanism.api.text.ILangEntry
 import net.neoforged.neoforge.registries.DeferredHolder
 
 class MekCreLanguageProvider(val provider: RegistrateLangProvider) {
     init {
-        provider.add("itemGroup.${MODID}", "Mekanism x Create")
+        add(MekCreLang.ITEM_GROUP, "Mekanism x Create")
 
         MekCreMachines.REGISTRY.blockRegister.primaryEntries.forEach { machine ->
             provider.addBlock(machine, format(machine.id.path))
@@ -18,22 +20,26 @@ class MekCreLanguageProvider(val provider: RegistrateLangProvider) {
         addDescription(MekCreMachines.MEKANICAL_PRESS, "A simple machine used for pressing items.")
         addDescription(MekCreMachines.MAGMA_CUBE_HEATER, "A Magma Cube that converts Mekanism heat into a heat source for Create.")
 
-        provider.add("mekcre.gui.goggles.infuser_info", "Mechanical Infuser Info:")
-        provider.add("mekcre.gui.goggles.infuser_info.chemical", "Chemical: %s")
+        add(MekCreLang.INFUSER_INFO, "Mechanical Infuser Info:")
+        add(MekCreLang.INFUSER_INFO_CHEMICAL, "Chemical: %s")
 
-        provider.add("mekcre.gui.idle", "Idle")
-        provider.add("mekcre.gui.heated", "Heated")
-        provider.add("mekcre.gui.superheated", "Superheated")
-        provider.add("mekcre.gui.current_heat_level", "Current heat level: %s")
-        provider.add("mekcre.gui.configured_heat_level", "Configured heat level: %s")
+        add(MekCreLang.HEAT_LEVEL_IDLE, "Idle")
+        add(MekCreLang.HEAT_LEVEL_HEATED, "Heated")
+        add(MekCreLang.HEAT_LEVEL_SUPERHEATED, "Superheated")
+        add(MekCreLang.HEAT_LEVEL_CURRENT, "Current heat level: %s")
+        add(MekCreLang.HEAT_LEVEL_CONFIGURED, "Configured heat level: %s")
 
-        provider.add("mekcre.recipe.assembly.infuse_chemical", "Infuse %s")
+        add(MekCreLang.ASSEMBLY_INFUSE_CHEMICAL, "Infuse %s")
     }
 
     private fun format(name: String): String {
         return name.split("_")
             .map { it.replaceFirstChar(Char::uppercase) }
             .joinToString(" ") { it }
+    }
+
+    private fun add(key: ILangEntry, value: String) {
+        provider.add(key.translationKey, value)
     }
 
     private fun addDescription(machine: SimpleMachineRegistryObject<*>, value: String) {

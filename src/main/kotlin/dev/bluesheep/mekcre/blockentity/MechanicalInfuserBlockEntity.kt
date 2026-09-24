@@ -8,6 +8,7 @@ import com.simibubi.create.content.kinetics.belt.behaviour.TransportedItemStackH
 import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyRecipe
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
+import dev.bluesheep.mekcre.MekCreLang
 import dev.bluesheep.mekcre.MekCreMod
 import dev.bluesheep.mekcre.recipe.create.InfusingRecipe
 import dev.bluesheep.mekcre.registry.MekCreRecipeTypes
@@ -187,9 +188,7 @@ class MechanicalInfuserBlockEntity(
     }
 
     override fun addToGoggleTooltip(tooltip: MutableList<Component>, isPlayerSneaking: Boolean): Boolean {
-        LangBuilder(MekCreMod.MODID)
-            .translate("gui.goggles.infuser_info")
-            .forGoggles(tooltip)
+        MekCreLang.INFUSER_INFO.forGoggles(tooltip)
 
         super.addToGoggleTooltip(tooltip, isPlayerSneaking)
 
@@ -197,9 +196,7 @@ class MechanicalInfuserBlockEntity(
 
         tooltip.add(Component.empty())
 
-        LangBuilder(MekCreMod.MODID)
-            .translate("gui.goggles.infuser_info.chemical", inputInfusionTank.stack.textComponent.copy().withStyle(ChatFormatting.GRAY))
-            .forGoggles(tooltip)
+        MekCreLang.INFUSER_INFO_CHEMICAL.forGoggles(tooltip)
 
         LangBuilder(MekCreMod.MODID)
             .text(ChatFormatting.YELLOW, TextUtils.format(inputInfusionTank.stored))

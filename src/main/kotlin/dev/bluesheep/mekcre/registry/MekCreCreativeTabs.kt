@@ -1,8 +1,8 @@
 package dev.bluesheep.mekcre.registry
 
+import dev.bluesheep.mekcre.MekCreLang
 import dev.bluesheep.mekcre.MekCreMod
 import net.minecraft.core.registries.Registries
-import net.minecraft.network.chat.Component
 import net.minecraft.world.item.CreativeModeTab
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -12,7 +12,7 @@ object MekCreCreativeTabs {
 
     val TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> = REGISTRY.register("tab") { ->
         CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.${MekCreMod.MODID}"))
+            .title(MekCreLang.ITEM_GROUP.translate())
             .icon { MekCreItems.OSMIUM_SHEET.get().defaultInstance }
             .displayItems { parameters, output ->
                 MekCreMachines.REGISTRY.machines.forEach(output::accept)
