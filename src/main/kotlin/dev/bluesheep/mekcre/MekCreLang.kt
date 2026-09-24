@@ -12,7 +12,8 @@ enum class MekCreLang(private val translationKey: String) : ILangEntry {
     HEAT_LEVEL_CONFIGURED("gui", "heat_level.configured"),
     INFUSER_INFO("gui", "goggles.infuser_info"),
     INFUSER_INFO_CHEMICAL("gui", "goggles.infuser_info.chemical"),
-    ASSEMBLY_INFUSE_CHEMICAL("recipe", "assembly.infuse_chemical"),;
+    ASSEMBLY_INFUSE_CHEMICAL("recipe", "assembly.infuse_chemical"),
+    HEATER_CAPTURE_ERROR("block", "empty_heater.capture_error"),;
 
     constructor(type: String, path: String) : this("$type.${MekCreMod.MODID}.$path")
 

@@ -1,4 +1,6 @@
 {
+  "block.mekcre.empty_heater": "Empty Heater",
+  "block.mekcre.empty_heater.capture_error": "It won't fit...",
   "block.mekcre.magma_cube_heater": "Magma Cube Heater",
   "block.mekcre.mechanical_infuser": "Mechanical Infuser",
   "block.mekcre.mekanical_press": "Mekanical Press",

@@ -30,6 +30,8 @@ class MekCreLanguageProvider(val provider: RegistrateLangProvider) {
         add(MekCreLang.HEAT_LEVEL_CONFIGURED, "Configured heat level: %s")
 
         add(MekCreLang.ASSEMBLY_INFUSE_CHEMICAL, "Infuse %s")
+
+        add(MekCreLang.HEATER_CAPTURE_ERROR, "It won't fit...")
     }
 
     private fun format(name: String): String {
