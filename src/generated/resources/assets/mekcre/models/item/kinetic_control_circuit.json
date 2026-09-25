@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "mekcre:item/incomplete_refined_obsidian"
+    "layer0": "mekcre:item/kinetic_control_circuit"
   }
 }

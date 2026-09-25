@@ -16,8 +16,11 @@
   "gui.mekcre.heat_level.heated": "pǝʇɐǝH",
   "gui.mekcre.heat_level.idle": "ǝןpI",
   "gui.mekcre.heat_level.superheated": "pǝʇɐǝɥɹǝdnS",
-  "item.mekcre.incomplete_refined_glowstone": "ǝuoʇsʍoן⅁ pǝuıɟǝᴚ ǝʇǝןdɯoɔuI",
-  "item.mekcre.incomplete_refined_obsidian": "uɐıpısqO pǝuıɟǝᴚ ǝʇǝןdɯoɔuI",
+  "item.mekcre.contraption_control_circuit": "ʇınɔɹıƆ ןoɹʇuoƆ uoıʇdɐɹʇuoƆ",
+  "item.mekcre.incomplete_contraption_control_circuit": "ʇınɔɹıƆ ןoɹʇuoƆ uoıʇdɐɹʇuoƆ ǝʇǝןdɯoɔuI",
+  "item.mekcre.incomplete_refined_glowstone_ingot": "ʇobuI ǝuoʇsʍoן⅁ pǝuıɟǝᴚ ǝʇǝןdɯoɔuI",
+  "item.mekcre.incomplete_refined_obsidian_ingot": "ʇobuI uɐıpısqO pǝuıɟǝᴚ ǝʇǝןdɯoɔuI",
+  "item.mekcre.kinetic_control_circuit": "ʇınɔɹıƆ ןoɹʇuoƆ ɔıʇǝuıʞ",
   "item.mekcre.osmium_sheet": "ʇǝǝɥS ɯnıɯsO",
   "itemGroup.mekcre": "ǝʇɐǝɹƆ x ɯsıuɐʞǝW",
   "recipe.mekcre.assembly.infuse_chemical": "%s ǝsnɟuI"

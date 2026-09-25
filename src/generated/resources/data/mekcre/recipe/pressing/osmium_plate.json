@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "tag": "c:ingots/osmium"
+    }
+  ],
+  "results": [
+    {
+      "id": "mekcre:osmium_sheet"
+    }
+  ]
+}

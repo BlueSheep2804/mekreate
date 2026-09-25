@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "create:andesite_alloy"
+    },
+    "C": {
+      "item": "mekanism:basic_control_circuit"
+    }
+  },
+  "pattern": [
+    "ACA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekcre:kinetic_control_circuit"
+  }
+}

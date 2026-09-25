@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "mekcre:osmium_casing"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "O": {
+      "tag": "c:plates/osmium"
+    },
+    "S": {
+      "item": "create:shaft"
+    }
+  },
+  "pattern": [
+    "FIF",
+    "SCS",
+    " O "
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekcre:mechanical_infuser"
+  }
+}

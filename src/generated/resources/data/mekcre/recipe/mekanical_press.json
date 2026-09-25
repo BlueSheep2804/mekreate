@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "@": {
+      "item": "mekanism:steel_casing"
+    },
+    "A": {
+      "item": "create:andesite_alloy"
+    },
+    "C": {
+      "item": "mekcre:kinetic_control_circuit"
+    },
+    "I": {
+      "tag": "c:storage_blocks/iron"
+    },
+    "S": {
+      "item": "create:shaft"
+    }
+  },
+  "pattern": [
+    "ASA",
+    "C@C",
+    "AIA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekcre:mekanical_press"
+  }
+}

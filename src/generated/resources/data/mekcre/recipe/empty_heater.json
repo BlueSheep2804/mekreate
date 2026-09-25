@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:basalt"
+    },
+    "P": {
+      "tag": "c:plates/osmium"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PBP",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekcre:empty_heater"
+  }
+}

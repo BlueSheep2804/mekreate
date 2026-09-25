@@ -16,8 +16,11 @@
   "gui.mekcre.heat_level.heated": "Heated",
   "gui.mekcre.heat_level.idle": "Idle",
   "gui.mekcre.heat_level.superheated": "Superheated",
-  "item.mekcre.incomplete_refined_glowstone": "Incomplete Refined Glowstone",
-  "item.mekcre.incomplete_refined_obsidian": "Incomplete Refined Obsidian",
+  "item.mekcre.contraption_control_circuit": "Contraption Control Circuit",
+  "item.mekcre.incomplete_contraption_control_circuit": "Incomplete Contraption Control Circuit",
+  "item.mekcre.incomplete_refined_glowstone_ingot": "Incomplete Refined Glowstone Ingot",
+  "item.mekcre.incomplete_refined_obsidian_ingot": "Incomplete Refined Obsidian Ingot",
+  "item.mekcre.kinetic_control_circuit": "Kinetic Control Circuit",
   "item.mekcre.osmium_sheet": "Osmium Sheet",
   "itemGroup.mekcre": "Mekanism x Create",
   "recipe.mekcre.assembly.infuse_chemical": "Infuse %s"

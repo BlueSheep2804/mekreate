@@ -18,12 +18,12 @@
       },
       "ingredients": [
         {
-          "item": "mekcre:incomplete_refined_glowstone"
+          "item": "mekcre:incomplete_refined_glowstone_ingot"
         }
       ],
       "results": [
         {
-          "id": "mekcre:incomplete_refined_glowstone"
+          "id": "mekcre:incomplete_refined_glowstone_ingot"
         }
       ]
     },
@@ -31,12 +31,12 @@
       "type": "create:pressing",
       "ingredients": [
         {
-          "item": "mekcre:incomplete_refined_glowstone"
+          "item": "mekcre:incomplete_refined_glowstone_ingot"
         }
       ],
       "results": [
         {
-          "id": "mekcre:incomplete_refined_glowstone"
+          "id": "mekcre:incomplete_refined_glowstone_ingot"
         }
       ]
     },
@@ -44,17 +44,17 @@
       "type": "create:pressing",
       "ingredients": [
         {
-          "item": "mekcre:incomplete_refined_glowstone"
+          "item": "mekcre:incomplete_refined_glowstone_ingot"
         }
       ],
       "results": [
         {
-          "id": "mekcre:incomplete_refined_glowstone"
+          "id": "mekcre:incomplete_refined_glowstone_ingot"
         }
       ]
     }
   ],
   "transitional_item": {
-    "id": "mekcre:incomplete_refined_glowstone"
+    "id": "mekcre:incomplete_refined_glowstone_ingot"
   }
 }

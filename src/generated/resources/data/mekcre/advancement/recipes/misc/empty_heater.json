@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_c_plates_osmium": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:plates/osmium"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mekcre:empty_heater"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_c_plates_osmium"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mekcre:empty_heater"
+    ]
+  }
+}

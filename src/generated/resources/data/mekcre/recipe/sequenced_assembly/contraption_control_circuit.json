@@ -1,0 +1,95 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "mekcre:kinetic_control_circuit"
+  },
+  "loops": 4,
+  "results": [
+    {
+      "chance": 120.0,
+      "id": "mekcre:contraption_control_circuit"
+    },
+    {
+      "chance": 8.0,
+      "id": "mekcre:kinetic_control_circuit"
+    },
+    {
+      "chance": 8.0,
+      "id": "create:andesite_alloy"
+    },
+    {
+      "chance": 5.0,
+      "id": "create:large_cogwheel"
+    },
+    {
+      "chance": 3.0,
+      "id": "create:iron_sheet"
+    },
+    {
+      "chance": 2.0,
+      "id": "create:rose_quartz"
+    },
+    {
+      "chance": 2.0,
+      "id": "mekanism:basic_control_circuit"
+    },
+    {
+      "chance": 2.0,
+      "id": "mekanism:dust_refined_obsidian"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "mekcre:incomplete_contraption_control_circuit"
+        },
+        {
+          "item": "create:large_cogwheel"
+        }
+      ],
+      "results": [
+        {
+          "id": "mekcre:incomplete_contraption_control_circuit"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "mekcre:incomplete_contraption_control_circuit"
+        },
+        {
+          "item": "create:electron_tube"
+        }
+      ],
+      "results": [
+        {
+          "id": "mekcre:incomplete_contraption_control_circuit"
+        }
+      ]
+    },
+    {
+      "type": "mekcre:infusing",
+      "chemical": {
+        "amount": 40,
+        "chemical": "mekanism:refined_obsidian"
+      },
+      "ingredients": [
+        {
+          "item": "mekcre:incomplete_contraption_control_circuit"
+        }
+      ],
+      "results": [
+        {
+          "id": "mekcre:incomplete_contraption_control_circuit"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "mekcre:incomplete_contraption_control_circuit"
+  }
+}
