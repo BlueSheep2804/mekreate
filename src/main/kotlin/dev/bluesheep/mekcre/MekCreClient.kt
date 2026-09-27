@@ -4,6 +4,7 @@ import dev.bluesheep.mekcre.block.renderer.MagmaCubeHeaterBlockRenderer
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.registry.MekCrePartialModels
 import dev.bluesheep.mekcre.screen.MagmaCubeHeaterScreen
+import dev.bluesheep.mekcre.screen.MekanicalPressFactoryScreen
 import dev.bluesheep.mekcre.screen.MekanicalPressScreen
 import mekanism.client.ClientRegistrationUtil
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers
@@ -26,6 +27,13 @@ object MekCreClient {
             MekCreMachines.MEKANICAL_PRESS.container,
             ::MekanicalPressScreen
         )
+        MekCreMachines.MEKANICAL_PRESS_FACTORIES.forEach { (tier, machine) ->
+            ClientRegistrationUtil.registerScreen(
+                event,
+                machine.container,
+                ::MekanicalPressFactoryScreen
+            )
+        }
         ClientRegistrationUtil.registerScreen(
             event,
             MekCreMachines.MAGMA_CUBE_HEATER.container,

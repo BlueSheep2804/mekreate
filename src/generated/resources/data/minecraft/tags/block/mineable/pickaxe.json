@@ -2,6 +2,10 @@
   "values": [
     "mekcre:mechanical_infuser",
     "mekcre:osmium_casing",
+    "mekcre:basic_pressing_factory",
+    "mekcre:advanced_pressing_factory",
+    "mekcre:elite_pressing_factory",
+    "mekcre:ultimate_pressing_factory",
     "mekcre:mekanical_press",
     "mekcre:magma_cube_heater"
   ]

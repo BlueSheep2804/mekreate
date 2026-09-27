@@ -5,6 +5,8 @@
   "refmap": "mekcre.refmap.json",
   "mixins": [
     "BlazeBurnerBlockEntityMixin",
+    "BlockTypeAccessor",
+    "BlockTypeBuilderAccessor",
     "OutputHelperAccessor"
   ],
   "injectors": {

@@ -4,6 +4,7 @@ import com.simibubi.create.content.kinetics.press.PressingRecipe
 import com.takenokoshi.mekaddonlib.blockentity.base.BEMultiScaledProgressMachine
 import com.takenokoshi.mekaddonlib.recipe.cached.ICachedRecipe
 import com.takenokoshi.mekaddonlib.recipe.type.IMekALRecipeTypeProvider
+import dev.bluesheep.mekcre.blockentity.upgradeData.MekanicalPressUpgradeData
 import dev.bluesheep.mekcre.recipe.PressingCachedRecipe
 import dev.bluesheep.mekcre.recipe.output.ProcessingOutputHandler
 import dev.bluesheep.mekcre.registry.MekCreMekanismRecipeTypes
@@ -25,10 +26,12 @@ import mekanism.common.inventory.warning.WarningTracker
 import mekanism.common.lib.transmitter.TransmissionType
 import mekanism.common.registration.impl.ItemRegistryObject
 import mekanism.common.tile.component.TileComponentEjector
+import mekanism.common.upgrade.IUpgradeData
 import net.minecraft.SharedConstants
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.Holder
+import net.minecraft.core.HolderLookup
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
 
@@ -58,6 +61,7 @@ class MekanicalPressBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
             }
         }
     }
+
     private lateinit var inputSlot: InputInventorySlot
     private lateinit var outputSlot: OutputInventorySlot
     private lateinit var secondaryOutputSlot: OutputInventorySlot
@@ -172,5 +176,20 @@ class MekanicalPressBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
 
     override fun getRecipeType(): IMekALRecipeTypeProvider<*, PressingRecipe?, *> {
         return MekCreMekanismRecipeTypes.PRESS
+    }
+
+    override fun getUpgradeData(provider: HolderLookup.Provider?): IUpgradeData {
+        return MekanicalPressUpgradeData(
+            provider,
+            redstone,
+            controlType,
+            energyContainer,
+            intArrayOf(operatingTicks),
+            energySlot,
+            arrayOf(inputSlot),
+            listOf(arrayOf(outputSlot), arrayOf(secondaryOutputSlot)),
+            false,
+            components
+        )
     }
 }

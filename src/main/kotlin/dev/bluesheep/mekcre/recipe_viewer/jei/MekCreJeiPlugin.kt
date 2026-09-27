@@ -31,6 +31,7 @@ class MekCreJeiPlugin : IModPlugin {
         registration.jeiHelpers.getRecipeType(LocationUtil.rlCreate("pressing"))
             .ifPresent {
                 registration.addRecipeCatalyst(MekCreMachines.MEKANICAL_PRESS, it)
+                registration.addRecipeCatalysts(it, *MekCreMachines.MEKANICAL_PRESS_FACTORIES.entries.map { it.value }.toTypedArray())
             }
     }
 }

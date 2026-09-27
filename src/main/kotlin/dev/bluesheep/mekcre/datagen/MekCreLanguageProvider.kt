@@ -1,24 +1,24 @@
 package dev.bluesheep.mekcre.datagen
 
-import com.takenokoshi.mekaddonlib.registration.SimpleMachineRegistryObject
+import com.takenokoshi.mekaddonlib.registration.MachineRegistryObject
 import com.tterrag.registrate.providers.RegistrateLangProvider
 import dev.bluesheep.mekcre.MekCreLang
-import dev.bluesheep.mekcre.MekCreMod.MODID
+import dev.bluesheep.mekcre.block.attribute.AttributeDescription
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import mekanism.api.text.ILangEntry
-import net.neoforged.neoforge.registries.DeferredHolder
 
 class MekCreLanguageProvider(val provider: RegistrateLangProvider) {
     init {
         add(MekCreLang.ITEM_GROUP, "Mekanism x Create")
 
-        MekCreMachines.REGISTRY.blockRegister.primaryEntries.forEach { machine ->
-            provider.addBlock(machine, format(machine.id.path))
+        MekCreMachines.REGISTRY.machines.forEach { machine ->
+            provider.addBlock(machine.block, format(machine.id.path))
             addContainer(machine, format(machine.id.path))
+            val description = machine.blockType.get(AttributeDescription::class.java)?.value
+            if (description != null) {
+                addDescription(machine, description)
+            }
         }
-
-        addDescription(MekCreMachines.MEKANICAL_PRESS, "A simple machine used for pressing items.")
-        addDescription(MekCreMachines.MAGMA_CUBE_HEATER, "A Magma Cube that converts Mekanism heat into a heat source for Create.")
 
         add(MekCreLang.INFUSER_INFO, "Mechanical Infuser Info:")
         add(MekCreLang.INFUSER_INFO_CHEMICAL, "Chemical: %s")
@@ -44,11 +44,11 @@ class MekCreLanguageProvider(val provider: RegistrateLangProvider) {
         provider.add(key.translationKey, value)
     }
 
-    private fun addDescription(machine: SimpleMachineRegistryObject<*>, value: String) {
+    private fun addDescription(machine: MachineRegistryObject<*, *, *, *>, value: String) {
         provider.add(machine.descriptionEntry.translationKey, value)
     }
 
-    private fun addContainer(machine: DeferredHolder<*, *>, value: String) {
+    private fun addContainer(machine: MachineRegistryObject<*, *, *, *>, value: String) {
         provider.add(machine.id.toLanguageKey("container"), value)
     }
 }
