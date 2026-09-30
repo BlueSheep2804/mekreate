@@ -1,0 +1,9 @@
+{
+  "parent": "mekanism:block/machine",
+  "textures": {
+    "down": "mekcre:block/mekanical_mill_bottom",
+    "front": "mekcre:block/mekanical_mill_front",
+    "sides": "mekcre:block/mekanical_mill_side",
+    "up": "mekcre:block/mekanical_mill_top"
+  }
+}

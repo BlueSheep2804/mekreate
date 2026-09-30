@@ -1,5 +1,6 @@
 package dev.bluesheep.mekcre.recipe_viewer
 
+import com.simibubi.create.content.kinetics.millstone.MillingRecipe
 import com.simibubi.create.content.kinetics.press.PressingRecipe
 import com.takenokoshi.mekaddonlib.recipe_viewer.type.RVMekALRecipeTypeWrapper
 import dev.bluesheep.mekcre.registry.MekCreMachines
@@ -13,5 +14,12 @@ object MekCreRecipeViewerTypes {
         MekCreMekanismRecipeTypes.PRESS,
         0, 0, 20, 20,
         MekCreMachines.MEKANICAL_PRESS
+    )
+    val MILLING = RVMekALRecipeTypeWrapper(
+        LocationUtil.rlCreate("milling"),
+        MillingRecipe::class.java,
+        MekCreMekanismRecipeTypes.MILLING,
+        0, 0, 20, 20,
+        MekCreMachines.MEKANICAL_MILL
     )
 }

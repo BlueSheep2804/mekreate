@@ -7,6 +7,11 @@
     "mekcre:elite_pressing_factory",
     "mekcre:ultimate_pressing_factory",
     "mekcre:mekanical_press",
+    "mekcre:basic_milling_factory",
+    "mekcre:advanced_milling_factory",
+    "mekcre:elite_milling_factory",
+    "mekcre:ultimate_milling_factory",
+    "mekcre:mekanical_mill",
     "mekcre:magma_cube_heater"
   ]
 }

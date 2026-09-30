@@ -26,6 +26,14 @@ class MekCreBlockModelProvider(
             )
         }
 
+        MekCreMachines.MILLING_FACTORIES.forEach { (tier, machine) ->
+            horizontalBlock(
+                machine.block.get(),
+                models().getBuilder("block/${machine.id.path}")
+                    .parent(ModelFile.UncheckedModelFile(LocationUtil.rl("block/mekanical_mill")))
+            )
+        }
+
         horizontalBlock(
             MekCreMachines.MAGMA_CUBE_HEATER.block.get(),
             models().withExistingParent("magma_cube_heater", LocationUtil.rlCreate("block/blaze_burner/block"))

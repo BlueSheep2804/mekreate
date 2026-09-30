@@ -4,8 +4,10 @@ import dev.bluesheep.mekcre.block.renderer.MagmaCubeHeaterBlockRenderer
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.registry.MekCrePartialModels
 import dev.bluesheep.mekcre.screen.MagmaCubeHeaterScreen
+import dev.bluesheep.mekcre.screen.MekanicalMillScreen
 import dev.bluesheep.mekcre.screen.MekanicalPressFactoryScreen
 import dev.bluesheep.mekcre.screen.MekanicalPressScreen
+import dev.bluesheep.mekcre.screen.MillingFactoryScreen
 import mekanism.client.ClientRegistrationUtil
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers
 import net.neoforged.api.distmarker.Dist
@@ -32,6 +34,18 @@ object MekCreClient {
                 event,
                 machine.container,
                 ::MekanicalPressFactoryScreen
+            )
+        }
+        ClientRegistrationUtil.registerScreen(
+            event,
+            MekCreMachines.MEKANICAL_MILL.container,
+            ::MekanicalMillScreen
+        )
+        MekCreMachines.MILLING_FACTORIES.forEach { (tier, machine) ->
+            ClientRegistrationUtil.registerScreen(
+                event,
+                machine.container,
+                ::MillingFactoryScreen
             )
         }
         ClientRegistrationUtil.registerScreen(

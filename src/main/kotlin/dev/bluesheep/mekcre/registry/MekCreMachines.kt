@@ -8,8 +8,10 @@ import dev.bluesheep.mekcre.block.attribute.AttributeDescription
 import dev.bluesheep.mekcre.block.attribute.AttributeNoOcclusion
 import dev.bluesheep.mekcre.block.attribute.AttributeStateHeatLevel
 import dev.bluesheep.mekcre.blockentity.MagmaCubeHeaterBlockEntity
+import dev.bluesheep.mekcre.blockentity.MekanicalMillBlockEntity
 import dev.bluesheep.mekcre.blockentity.MekanicalPressBlockEntity
 import dev.bluesheep.mekcre.blockentity.MekanicalPressFactoryBlockEntity
+import dev.bluesheep.mekcre.blockentity.MillingFactoryBlockEntity
 import dev.bluesheep.mekcre.mixin.BlockTypeAccessor
 import dev.bluesheep.mekcre.mixin.BlockTypeBuilderAccessor
 import mekanism.api.math.MathUtils
@@ -68,6 +70,52 @@ object MekCreMachines {
             .with(
                 AttributeUpgradeable { MEKANICAL_PRESS_FACTORIES[FactoryTier.BASIC]!!.block },
                 AttributeDescription("A simple machine used for pressing items.")
+            )
+            .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
+            .withEnergyConfig(MekanismConfig.usage.enrichmentChamber, MekanismConfig.storage.enrichmentChamber)
+    }
+
+    val MILLING_FACTORIES: Map<FactoryTier, GuiSizedMachineRegistryObject<MillingFactoryBlockEntity>> = buildMap {
+        FactoryTier.entries.forEach { tier ->
+            val machine = REGISTRY.registerGuiSized(
+                "${tier.name.lowercase()}_milling_factory",
+                AttachedSideConfig.ELECTRIC_MACHINE,
+                MillingFactoryBlockEntity.addContainersToItem(tier.processes),
+                ::MillingFactoryBlockEntity,
+                MillingFactoryBlockEntity::class.java
+            ) { builder ->
+                builder
+                    .with(AttributeTier(tier))
+                    .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
+                    .withEnergyConfig(
+                        MekanismConfig.usage.enrichmentChamber
+                    ) {
+                        MathUtils.clampToLong(
+                            (MekanismConfig.storage.enrichmentChamber.get() * 0.5)
+                                .coerceAtLeast(MekanismConfig.usage.enrichmentChamber.get().toDouble()) * tier.processes.toDouble()
+                        )
+                    }
+                ((builder as BlockTypeBuilderAccessor).holder as BlockTypeAccessor).setDescription(MekanismLang.DESCRIPTION_FACTORY)
+                if (tier != FactoryTier.ULTIMATE) {
+                    builder.with(AttributeUpgradeable { MILLING_FACTORIES[FactoryTier.entries[tier.ordinal + 1]]?.block })
+                }
+                return@registerGuiSized builder
+            }
+            this[tier] = machine
+        }
+    }
+
+    val MEKANICAL_MILL: SimpleMachineRegistryObject<MekanicalMillBlockEntity> = REGISTRY.registerSimple(
+        "mekanical_mill",
+        AttachedSideConfig.ELECTRIC_MACHINE,
+        MekanicalMillBlockEntity::addContainersToItem,
+        ::MekanicalMillBlockEntity,
+        MekanicalMillBlockEntity::class.java
+    ) { builder ->
+        builder
+            .with(
+                AttributeUpgradeable { MILLING_FACTORIES[FactoryTier.BASIC]!!.block },
+                AttributeDescription("A simple machine used for milling items.")
             )
             .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
             .withEnergyConfig(MekanismConfig.usage.enrichmentChamber, MekanismConfig.storage.enrichmentChamber)
