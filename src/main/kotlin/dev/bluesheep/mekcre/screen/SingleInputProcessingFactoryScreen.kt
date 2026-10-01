@@ -2,9 +2,8 @@ package dev.bluesheep.mekcre.screen
 
 import com.takenokoshi.mekaddonlib.gui.tab.GuiMekALFactorySortingTab
 import com.takenokoshi.mekaddonlib.inventory.container.MekALDynamicSizedContainer
-import dev.bluesheep.mekcre.blockentity.MekanicalPressFactoryBlockEntity
-import dev.bluesheep.mekcre.recipe_viewer.MekCreRecipeViewerTypes
-import dev.bluesheep.mekcre.util.FactoryGuiUtil
+import dev.bluesheep.mekcre.blockentity.base.SingleInputProcessingFactory
+import dev.bluesheep.mekcre.util.MachineSlotUtil
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError
 import mekanism.client.gui.GuiConfigurableTile
 import mekanism.client.gui.element.bar.GuiVerticalPowerBar
@@ -17,17 +16,17 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
-class MekanicalPressFactoryScreen(
-    container: MekALDynamicSizedContainer<MekanicalPressFactoryBlockEntity>,
+class SingleInputProcessingFactoryScreen<BE: SingleInputProcessingFactory<*>>(
+    container: MekALDynamicSizedContainer<BE>,
     inv: Inventory,
     title: Component
-) : GuiConfigurableTile<MekanicalPressFactoryBlockEntity, MekALDynamicSizedContainer<MekanicalPressFactoryBlockEntity>>(
+) : GuiConfigurableTile<BE, MekALDynamicSizedContainer<BE>>(
     container, inv, title
 ) {
     init {
         imageWidth += tile.extraWidth
         imageHeight += tile.extraHeight
-        inventoryLabelY = 95
+        inventoryLabelY = imageHeight - 94
         if (tile.tier == FactoryTier.ULTIMATE) {
             inventoryLabelX = 26
         }
@@ -43,17 +42,19 @@ class MekanicalPressFactoryScreen(
         addRenderableWidget(GuiEnergyTab(this, tile.energyContainer, tile::getActive))
 
         repeat(tile.tier.processes) { i ->
-            val baseX = FactoryGuiUtil.getBaseX(tile.tier)
-            val baseXMult = FactoryGuiUtil.getBaseXMult(tile.tier)
+            val baseX = MachineSlotUtil.getBaseX(tile.tier)
+            val baseXMult = MachineSlotUtil.getBaseXMult(tile.tier)
 
-            addRenderableWidget(GuiProgress(
-                fun(): Double { return tile.getScaledProgress(i) },
-                ProgressType.DOWN,
-                this,
-                4 + baseX + (i * baseXMult),
-                33
-            ))
-                .recipeViewerCategories(MekCreRecipeViewerTypes.PRESSING)
+            addRenderableWidget(
+                GuiProgress(
+                    fun(): Double { return tile.getScaledProgress(i) },
+                    ProgressType.DOWN,
+                    this,
+                    4 + baseX + (i * baseXMult),
+                    33
+                )
+            )
+                .recipeViewerCategories(*tile.getRecipeViewerTypes())
         }
     }
 

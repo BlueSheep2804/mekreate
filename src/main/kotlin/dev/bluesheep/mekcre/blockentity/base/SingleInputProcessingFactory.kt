@@ -1,22 +1,20 @@
-package dev.bluesheep.mekcre.blockentity
+package dev.bluesheep.mekcre.blockentity.base
 
-import com.simibubi.create.content.kinetics.millstone.MillingRecipe
+import com.simibubi.create.content.processing.recipe.ProcessingRecipe
 import com.takenokoshi.mekaddonlib.blockentity.base.BEMultiScaledProgressFactory
 import com.takenokoshi.mekaddonlib.recipe.cached.ICachedRecipe
-import com.takenokoshi.mekaddonlib.recipe.type.IMekALRecipeTypeProvider
-import dev.bluesheep.mekcre.blockentity.upgradeData.MekanicalPressUpgradeData
+import com.takenokoshi.mekaddonlib.recipe.inputcache.MekALSingleInputRecipeCache
+import com.takenokoshi.mekaddonlib.recipe_viewer.type.RVMekALRecipeTypeWrapper
+import dev.bluesheep.mekcre.blockentity.upgradeData.ProcessingMachineUpgradeData
 import dev.bluesheep.mekcre.recipe.cached.SingleInputCachedProcessingRecipe
 import dev.bluesheep.mekcre.recipe.output.ProcessingOutputHandler
 import dev.bluesheep.mekcre.registry.MekCreMekanismRecipeTypes
-import dev.bluesheep.mekcre.util.FactoryGuiUtil
 import dev.bluesheep.mekcre.util.MachineSlotUtil
 import mekanism.api.Action
 import mekanism.api.IContentsListener
 import mekanism.api.energy.IEnergyContainer
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError
 import mekanism.api.recipes.inputs.InputHelper
-import mekanism.common.attachments.containers.ContainerType
-import mekanism.common.attachments.containers.item.ItemSlotsBuilder
 import mekanism.common.capabilities.energy.MachineEnergyContainer
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper
 import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder
@@ -27,7 +25,6 @@ import mekanism.common.inventory.slot.InputInventorySlot
 import mekanism.common.inventory.slot.OutputInventorySlot
 import mekanism.common.inventory.warning.WarningTracker
 import mekanism.common.lib.transmitter.TransmissionType
-import mekanism.common.registration.impl.ItemRegistryObject
 import mekanism.common.tier.FactoryTier
 import mekanism.common.tile.component.TileComponentEjector
 import mekanism.common.upgrade.IUpgradeData
@@ -41,7 +38,7 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.common.util.ItemStackMap
 
-class MillingFactoryBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, state: BlockState) : BEMultiScaledProgressFactory<MillingRecipe>(
+abstract class SingleInputProcessingFactory<R: ProcessingRecipe<*, *>>(blockProvider: Holder<Block>, pos: BlockPos, state: BlockState) : BEMultiScaledProgressFactory<R>(
     blockProvider, pos, state,
     listOf(
         RecipeError.NOT_ENOUGH_INPUT,
@@ -56,29 +53,15 @@ class MillingFactoryBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
 ) {
     companion object {
         const val BASE_TICKS_REQUIRED = (10 * SharedConstants.TICKS_PER_SECOND)
-
-        fun addContainersToItem(processes: Int): (ItemRegistryObject<*>) -> Unit {
-            return fun (holder: ItemRegistryObject<*>) {
-                holder.addAttachmentOnlyContainers(ContainerType.ITEM) {
-                    val builder = ItemSlotsBuilder.builder()
-                    repeat(processes) {
-                        builder.addInput(1)
-                        builder.addOutput(4)
-                    }
-                    builder.addEnergy()
-
-                    return@addAttachmentOnlyContainers builder.build()
-                }
-            }
-        }
     }
+
     private lateinit var inputSlot: Array<InputInventorySlot>
     private lateinit var outputSlot: Array<Array<OutputInventorySlot>>
     private lateinit var energySlot: EnergyInventorySlot
 
-    private val inputHandler by lazy { inputSlot.map {
+    private val inputHandler = inputSlot.map {
         InputHelper.getInputHandler(it, RecipeError.NOT_ENOUGH_INPUT)
-    }}
+    }
     private val outputHandler = outputSlot.map { slot ->
         ProcessingOutputHandler(
             RecipeError.NOT_ENOUGH_OUTPUT_SPACE,
@@ -100,6 +83,10 @@ class MillingFactoryBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
             .setOutputData(configComponent, TransmissionType.ITEM)
     }
 
+    abstract fun getOutputCount(): Int
+
+    abstract fun getRecipeViewerTypes(): Array<RVMekALRecipeTypeWrapper<*, *, *>>
+
     override fun getInitialInventory(
         listener: IContentsListener?,
         recipeCacheListeners: Array<out IContentsListener?>,
@@ -107,8 +94,8 @@ class MillingFactoryBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
         recipeCacheUnpauseListeners: Array<out IContentsListener?>,
         allRecipeCacheUnpauseListeners: IContentsListener?
     ): IInventorySlotHolder? {
-        val baseX = FactoryGuiUtil.getBaseX(tier)
-        val baseXMult = FactoryGuiUtil.getBaseXMult(tier)
+        val baseX = MachineSlotUtil.getBaseX(tier)
+        val baseXMult = MachineSlotUtil.getBaseXMult(tier)
 
         inputSlot = Array(tier.processes) { i ->
             InputInventorySlot.at(
@@ -116,7 +103,7 @@ class MillingFactoryBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
                 baseX + (i * baseXMult), 13
             )
         }
-        outputSlot = MachineSlotUtil.multipleOutputSlotForFactory(recipeCacheUnpauseListeners, 4, tier)
+        outputSlot = MachineSlotUtil.multipleOutputSlotForFactory(recipeCacheUnpauseListeners, getOutputCount(), tier)
         energySlot = EnergyInventorySlot.fillOrConvert(energyContainer, this::level, listener, 7, 13)
         val builder = InventorySlotHelper.forSideWithConfig(this)
         for (i in 0 until tier.processes) {
@@ -127,7 +114,7 @@ class MillingFactoryBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
                         getWarningCheck(RecipeError.NOT_ENOUGH_INPUT, i)
                     )
                 }
-            repeat(4) { slotIndex ->
+            repeat(getOutputCount()) { slotIndex ->
                 builder.addSlot(outputSlot[i][slotIndex])
                     .tracksWarnings {
                         it.warning(
@@ -168,7 +155,9 @@ class MillingFactoryBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
     }
 
     override fun getExtraHeight(): Int {
-        return 57
+        return if (getOutputCount() > 1) {
+            21 + 18 * (getOutputCount() - 2)
+        } else 0
     }
 
     override fun onUpdateServer(): Boolean {
@@ -178,20 +167,19 @@ class MillingFactoryBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
         return needsPacket
     }
 
-    override fun getRecipe(index: Int): MillingRecipe? {
+    override fun getRecipe(index: Int): R? {
         val slot = inputSlot[index]
         if (slot.isEmpty) return null
 
         level ?: return null
-        return MekCreMekanismRecipeTypes.MILLING
-            .inputCache
+        return (recipeType.inputCache as MekALSingleInputRecipeCache.MekALSingleItem<out R>)
             .findFirstRecipe(level, slot.stack)
     }
 
     override fun createNewCachedRecipe(
-        recipe: MillingRecipe,
+        recipe: R,
         index: Int
-    ): ICachedRecipe<MillingRecipe?> {
+    ): ICachedRecipe<R?> {
         return SingleInputCachedProcessingRecipe(
             recipe,
             recheckAllRecipeErrors[index],
@@ -209,12 +197,8 @@ class MillingFactoryBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
             .setBaselineMaxOperations { operationsPerTicks[index] }
     }
 
-    override fun getRecipeType(): IMekALRecipeTypeProvider<*, MillingRecipe?, *> {
-        return MekCreMekanismRecipeTypes.MILLING
-    }
-
     override fun getUpgradeData(provider: HolderLookup.Provider?): IUpgradeData {
-        return MekanicalPressUpgradeData(
+        return ProcessingMachineUpgradeData(
             provider,
             redstone,
             controlType,
@@ -229,7 +213,7 @@ class MillingFactoryBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, sta
     }
 
     override fun parseUpgradeData(provider: HolderLookup.Provider?, data: IUpgradeData) {
-        if (data is MekanicalPressUpgradeData) {
+        if (data is ProcessingMachineUpgradeData) {
             redstone = data.redstone
             controlType = data.controlType
             energyContainer.energy = data.energyContainer.energy

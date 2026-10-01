@@ -9,7 +9,7 @@ import mekanism.common.upgrade.IUpgradeData
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 
-class MekanicalPressUpgradeData(
+class ProcessingMachineUpgradeData(
     val provider: HolderLookup.Provider?,
     val redstone: Boolean,
     val controlType: IRedstoneControl.RedstoneControl,

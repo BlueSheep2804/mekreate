@@ -195,7 +195,7 @@ dependencies {
     implementation("thedarkcolour:kotlinforforge-neoforge:5.9.0")
 
     implementation("mekanism:Mekanism:${ModInfo.minecraft_version}-${ModInfo.mekanism_version}:all")
-    implementation("curse.maven:mekanism-addon-library-1607060:8694606")
+    implementation("curse.maven:mekanism-addon-library-1607060:8744214")
 
     implementation("com.simibubi.create:create-${ModInfo.minecraft_version}:${ModInfo.create_version}:slim") { isTransitive = false }
     implementation("net.createmod.ponder:ponder-neoforge:${ModInfo.ponder_version}+mc${ModInfo.minecraft_version}")

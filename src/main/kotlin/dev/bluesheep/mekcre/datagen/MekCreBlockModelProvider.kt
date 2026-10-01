@@ -18,20 +18,14 @@ class MekCreBlockModelProvider(
     existingFileHelper
 ) {
     override fun registerStatesAndModels() {
-        MekCreMachines.MEKANICAL_PRESS_FACTORIES.forEach { (tier, machine) ->
-            horizontalBlock(
-                machine.block.get(),
-                models().getBuilder("block/${machine.id.path}")
-                    .parent(ModelFile.UncheckedModelFile(LocationUtil.rl("block/mekanical_press")))
-            )
-        }
-
-        MekCreMachines.MILLING_FACTORIES.forEach { (tier, machine) ->
-            horizontalBlock(
-                machine.block.get(),
-                models().getBuilder("block/${machine.id.path}")
-                    .parent(ModelFile.UncheckedModelFile(LocationUtil.rl("block/mekanical_mill")))
-            )
+        MekCreMachines.FACTORIES.forEach { (name, machines) ->
+            machines.forEach { (tier, machine) ->
+                horizontalBlock(
+                    machine.block.get(),
+                    models().getBuilder("block/${machine.id.path}")
+                        .parent(ModelFile.UncheckedModelFile(LocationUtil.rl("block/factory/$name")))
+                )
+            }
         }
 
         horizontalBlock(

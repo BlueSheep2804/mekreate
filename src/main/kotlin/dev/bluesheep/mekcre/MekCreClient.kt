@@ -1,13 +1,13 @@
 package dev.bluesheep.mekcre
 
+import com.takenokoshi.mekaddonlib.registration.GuiSizedMachineRegistryObject
 import dev.bluesheep.mekcre.block.renderer.MagmaCubeHeaterBlockRenderer
+import dev.bluesheep.mekcre.blockentity.base.SingleInputProcessingFactory
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.registry.MekCrePartialModels
 import dev.bluesheep.mekcre.screen.MagmaCubeHeaterScreen
-import dev.bluesheep.mekcre.screen.MekanicalMillScreen
-import dev.bluesheep.mekcre.screen.MekanicalPressFactoryScreen
-import dev.bluesheep.mekcre.screen.MekanicalPressScreen
-import dev.bluesheep.mekcre.screen.MillingFactoryScreen
+import dev.bluesheep.mekcre.screen.SingleInputProcessingFactoryScreen
+import dev.bluesheep.mekcre.screen.SingleInputProcessingMachineScreen
 import mekanism.client.ClientRegistrationUtil
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers
 import net.neoforged.api.distmarker.Dist
@@ -27,27 +27,16 @@ object MekCreClient {
         ClientRegistrationUtil.registerScreen(
             event,
             MekCreMachines.MEKANICAL_PRESS.container,
-            ::MekanicalPressScreen
+            ::SingleInputProcessingMachineScreen
         )
-        MekCreMachines.MEKANICAL_PRESS_FACTORIES.forEach { (tier, machine) ->
-            ClientRegistrationUtil.registerScreen(
-                event,
-                machine.container,
-                ::MekanicalPressFactoryScreen
-            )
+        MekCreMachines.FACTORIES.forEach { (name, machines) ->
+            machines.forEach { (tier, machine) -> registerFactoryScreen(event, machine) }
         }
         ClientRegistrationUtil.registerScreen(
             event,
             MekCreMachines.MEKANICAL_MILL.container,
-            ::MekanicalMillScreen
+            ::SingleInputProcessingMachineScreen
         )
-        MekCreMachines.MILLING_FACTORIES.forEach { (tier, machine) ->
-            ClientRegistrationUtil.registerScreen(
-                event,
-                machine.container,
-                ::MillingFactoryScreen
-            )
-        }
         ClientRegistrationUtil.registerScreen(
             event,
             MekCreMachines.MAGMA_CUBE_HEATER.container,
@@ -60,6 +49,14 @@ object MekCreClient {
         BlockEntityRenderers.register(
             MekCreMachines.MAGMA_CUBE_HEATER.tile.get(),
             ::MagmaCubeHeaterBlockRenderer
+        )
+    }
+
+    private fun <BE: SingleInputProcessingFactory<*>> registerFactoryScreen(event: RegisterMenuScreensEvent, machine: GuiSizedMachineRegistryObject<BE>) {
+        ClientRegistrationUtil.registerScreen(
+            event,
+            machine.container,
+            ::SingleInputProcessingFactoryScreen
         )
     }
 }

@@ -20,7 +20,7 @@ object MachineSlotUtil {
     }
 
     fun multipleOutputSlotForFactory(recipeCacheListeners: Array<out IContentsListener?>, size: Int, tier: FactoryTier): Array<Array<OutputInventorySlot>> {
-        val positions = positionsFactory(size, tier.processes)
+        val positions = positionsFactory(size, tier)
         return Array(tier.processes) { i ->
             Array(size) {
                 val pos = positions[i][it]
@@ -35,34 +35,40 @@ object MachineSlotUtil {
     private fun positions(size: Int): Array<Pair<Int, Int>> {
         return Array(size) {
             return@Array when (size) {
-                in 1..4 -> {
-                    OUTPUT_BASE_X + 18 * (it % 2) to OUTPUT_BASE_Y + 18 * (it / 2)
-                }
+                in 1..2 -> OUTPUT_BASE_X + 18 * (it % 2) to OUTPUT_BASE_Y + 18 * (it / 2)
+                in 3..4 -> OUTPUT_BASE_X + 18 * (it % 2) to OUTPUT_BASE_Y - 9 + 18 * (it / 2)
                 else -> OUTPUT_BASE_X to OUTPUT_BASE_Y
             }
         }
     }
 
-    private fun positionsFactory(size: Int, processes: Int): Array<Array<Pair<Int, Int>>> {
-        val baseX = when (processes) {
-            3 -> 55
-            5 -> 35
-            7 -> 29
-            else -> 27
-        }
-        val baseXMult = when (processes) {
-            3 -> 38
-            5 -> 26
-            else -> 19
-        }
-        return Array(processes) { processIndex ->
+    private fun positionsFactory(size: Int, tier: FactoryTier): Array<Array<Pair<Int, Int>>> {
+        val baseX = getBaseX(tier)
+        val baseXMult = getBaseXMult(tier)
+        return Array(tier.processes) { processIndex ->
             Array(size) { index ->
                 when (size) {
-                    in 1..2 -> OUTPUT_BASE_X + 18 * processIndex to OUTPUT_BASE_Y + 18 * (index / 2)
-                    in 3..4 -> (baseX + processIndex * baseXMult) to 57 + 18 * index
+                    in 1..4 -> (baseX + processIndex * baseXMult) to 57 + 18 * index
                     else -> OUTPUT_BASE_X to OUTPUT_BASE_Y
                 }
             }
+        }
+    }
+
+    fun getBaseX(tier: FactoryTier): Int {
+        return when (tier) {
+            FactoryTier.BASIC -> 55
+            FactoryTier.ADVANCED -> 35
+            FactoryTier.ELITE -> 29
+            else -> 27
+        }
+    }
+
+    fun getBaseXMult(tier: FactoryTier): Int {
+        return when (tier) {
+            FactoryTier.BASIC -> 38
+            FactoryTier.ADVANCED -> 26
+            else -> 19
         }
     }
 }

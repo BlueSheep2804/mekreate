@@ -1,6 +1,8 @@
 package dev.bluesheep.mekcre.screen
 
-import dev.bluesheep.mekcre.blockentity.MekanicalPressBlockEntity
+import com.takenokoshi.mekaddonlib.recipe_viewer.type.RVMekALRecipeTypeWrapper
+import dev.bluesheep.mekcre.blockentity.base.SingleInputProcessingMachine
+import dev.bluesheep.mekcre.blockentity.machine.MekanicalMillBlockEntity
 import dev.bluesheep.mekcre.recipe_viewer.MekCreRecipeViewerTypes
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError
 import mekanism.client.gui.GuiConfigurableTile
@@ -15,11 +17,11 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
-class MekanicalPressScreen(
-    container: MekanismTileContainer<MekanicalPressBlockEntity>,
+class SingleInputProcessingMachineScreen<BE: SingleInputProcessingMachine<*>>(
+    container: MekanismTileContainer<BE>,
     inv: Inventory,
     title: Component
-) : GuiConfigurableTile<MekanicalPressBlockEntity, MekanismTileContainer<MekanicalPressBlockEntity>>(
+) : GuiConfigurableTile<BE, MekanismTileContainer<BE>>(
     container, inv, title
 ) {
     init {
@@ -34,7 +36,7 @@ class MekanicalPressScreen(
         addRenderableWidget(GuiProgress(tile::getScaledProgress, ProgressType.BAR, this, 78, 38))
             .warning(WarningTracker.WarningType.INPUT_DOESNT_PRODUCE_OUTPUT, tile.getWarningCheck(RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT))
             .recipeViewerCategories(
-                MekCreRecipeViewerTypes.PRESSING
+                *tile.getRecipeViewerTypes()
             )
         addRenderableWidget(GuiEnergyTab(this, tile.energyContainer, tile::getActive))
     }

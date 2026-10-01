@@ -1,20 +1,18 @@
-package dev.bluesheep.mekcre.blockentity
+package dev.bluesheep.mekcre.blockentity.base
 
-import com.simibubi.create.content.kinetics.millstone.MillingRecipe
+import com.simibubi.create.content.processing.recipe.ProcessingRecipe
 import com.takenokoshi.mekaddonlib.blockentity.base.BEMultiScaledProgressMachine
 import com.takenokoshi.mekaddonlib.recipe.cached.ICachedRecipe
-import com.takenokoshi.mekaddonlib.recipe.type.IMekALRecipeTypeProvider
-import dev.bluesheep.mekcre.blockentity.upgradeData.MekanicalPressUpgradeData
+import com.takenokoshi.mekaddonlib.recipe.inputcache.MekALSingleInputRecipeCache
+import com.takenokoshi.mekaddonlib.recipe_viewer.type.RVMekALRecipeTypeWrapper
+import dev.bluesheep.mekcre.blockentity.upgradeData.ProcessingMachineUpgradeData
 import dev.bluesheep.mekcre.recipe.cached.SingleInputCachedProcessingRecipe
 import dev.bluesheep.mekcre.recipe.output.ProcessingOutputHandler
-import dev.bluesheep.mekcre.registry.MekCreMekanismRecipeTypes
 import dev.bluesheep.mekcre.util.MachineSlotUtil
 import mekanism.api.IContentsListener
 import mekanism.api.energy.IEnergyContainer
 import mekanism.api.recipes.cache.CachedRecipe.OperationTracker.RecipeError
 import mekanism.api.recipes.inputs.InputHelper
-import mekanism.common.attachments.containers.ContainerType
-import mekanism.common.attachments.containers.item.ItemSlotsBuilder
 import mekanism.common.capabilities.energy.MachineEnergyContainer
 import mekanism.common.capabilities.holder.energy.EnergyContainerHelper
 import mekanism.common.capabilities.holder.energy.IEnergyContainerHolder
@@ -25,7 +23,6 @@ import mekanism.common.inventory.slot.InputInventorySlot
 import mekanism.common.inventory.slot.OutputInventorySlot
 import mekanism.common.inventory.warning.WarningTracker
 import mekanism.common.lib.transmitter.TransmissionType
-import mekanism.common.registration.impl.ItemRegistryObject
 import mekanism.common.tile.component.TileComponentEjector
 import mekanism.common.upgrade.IUpgradeData
 import net.minecraft.SharedConstants
@@ -36,7 +33,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
 
-class MekanicalMillBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, state: BlockState) : BEMultiScaledProgressMachine<MillingRecipe>(
+abstract class SingleInputProcessingMachine<R: ProcessingRecipe<*, *>>(blockProvider: Holder<Block>, pos: BlockPos, state: BlockState) : BEMultiScaledProgressMachine<R>(
     blockProvider, pos, state,
     listOf(
         RecipeError.NOT_ENOUGH_INPUT,
@@ -49,16 +46,6 @@ class MekanicalMillBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, stat
 ) {
     companion object {
         const val BASE_TICKS_REQUIRED = (10 * SharedConstants.TICKS_PER_SECOND)
-
-        fun addContainersToItem(holder: ItemRegistryObject<*>) {
-            holder.addAttachmentOnlyContainers(ContainerType.ITEM) {
-                ItemSlotsBuilder.builder()
-                    .addInput(1)
-                    .addOutput(2)
-                    .addEnergy()
-                    .build()
-            }
-        }
     }
 
     private lateinit var inputSlot: InputInventorySlot
@@ -85,6 +72,10 @@ class MekanicalMillBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, stat
             .setOutputData(configComponent, TransmissionType.ITEM)
     }
 
+    abstract fun getOutputCount(): Int
+
+    abstract fun getRecipeViewerTypes(): Array<RVMekALRecipeTypeWrapper<*, *, *>>
+
     override fun getInitialInventory(
         listener: IContentsListener?,
         recipeCacheListener: IContentsListener?,
@@ -94,7 +85,7 @@ class MekanicalMillBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, stat
             recipeCacheListener,
             56, 17
         )
-        outputSlot = MachineSlotUtil.multipleOutputSlot(recipeCacheUnpauseListener, 4)
+        outputSlot = MachineSlotUtil.multipleOutputSlot(recipeCacheUnpauseListener, getOutputCount())
         energySlot = EnergyInventorySlot.fillOrConvert(energyContainer, this::level, listener, 56, 53)
         val builder = InventorySlotHelper.forSideWithConfig(this)
         builder.addSlot(inputSlot)
@@ -139,19 +130,18 @@ class MekanicalMillBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, stat
         return needsPacket
     }
 
-    override fun getRecipe(p0: Int): MillingRecipe? {
+    override fun getRecipe(p0: Int): R? {
         if (inputSlot.isEmpty) return null
 
         level ?: return null
-        return MekCreMekanismRecipeTypes.MILLING
-            .inputCache
+        return (recipeType.inputCache as MekALSingleInputRecipeCache.MekALSingleItem<out R>)
             .findFirstRecipe(level, inputSlot.stack)
     }
 
     override fun createNewCachedRecipe(
-        recipe: MillingRecipe,
+        recipe: R,
         cacheIndex: Int
-    ): ICachedRecipe<MillingRecipe?> {
+    ): ICachedRecipe<R?> {
         return SingleInputCachedProcessingRecipe(
             recipe,
             recheckAllRecipeErrors,
@@ -169,12 +159,8 @@ class MekanicalMillBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, stat
             .setBaselineMaxOperations(this::getOperationsPerTick)
     }
 
-    override fun getRecipeType(): IMekALRecipeTypeProvider<*, MillingRecipe?, *> {
-        return MekCreMekanismRecipeTypes.MILLING
-    }
-
     override fun getUpgradeData(provider: HolderLookup.Provider?): IUpgradeData {
-        return MekanicalPressUpgradeData(
+        return ProcessingMachineUpgradeData(
             provider,
             redstone,
             controlType,
