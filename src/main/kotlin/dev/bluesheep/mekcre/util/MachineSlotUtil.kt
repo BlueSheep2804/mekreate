@@ -37,6 +37,7 @@ object MachineSlotUtil {
             return@Array when (size) {
                 in 1..2 -> OUTPUT_BASE_X + 18 * (it % 2) to OUTPUT_BASE_Y + 18 * (it / 2)
                 in 3..4 -> OUTPUT_BASE_X + 18 * (it % 2) to OUTPUT_BASE_Y - 9 + 18 * (it / 2)
+                in 5..9 -> OUTPUT_BASE_X + 18 * (it % 3) to OUTPUT_BASE_Y - 18 + 18 * (it / 3)
                 else -> OUTPUT_BASE_X to OUTPUT_BASE_Y
             }
         }

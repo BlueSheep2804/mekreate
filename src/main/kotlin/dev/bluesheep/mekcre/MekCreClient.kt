@@ -39,6 +39,11 @@ object MekCreClient {
         )
         ClientRegistrationUtil.registerScreen(
             event,
+            MekCreMachines.MEKANICAL_CRUSHER.container,
+            ::SingleInputProcessingMachineScreen
+        )
+        ClientRegistrationUtil.registerScreen(
+            event,
             MekCreMachines.MAGMA_CUBE_HEATER.container,
             ::MagmaCubeHeaterScreen
         )

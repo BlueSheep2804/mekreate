@@ -14,6 +14,7 @@ import dev.bluesheep.mekcre.blockentity.machine.MekanicalPressBlockEntity
 import dev.bluesheep.mekcre.blockentity.factory.PressingFactoryBlockEntity
 import dev.bluesheep.mekcre.blockentity.factory.MillingFactoryBlockEntity
 import dev.bluesheep.mekcre.blockentity.machine.MekanicalMillBlockEntity
+import dev.bluesheep.mekcre.blockentity.machine.MekanicalCrusherBlockEntity
 import dev.bluesheep.mekcre.mixin.BlockTypeAccessor
 import dev.bluesheep.mekcre.mixin.BlockTypeBuilderAccessor
 import mekanism.api.math.MathUtils
@@ -79,6 +80,19 @@ object MekCreMachines {
             )
             .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
             .withEnergyConfig(MekanismConfig.usage.enrichmentChamber, MekanismConfig.storage.enrichmentChamber)
+    }
+
+    val MEKANICAL_CRUSHER: SimpleMachineRegistryObject<MekanicalCrusherBlockEntity> = REGISTRY.registerSimple(
+        "mekanical_crusher",
+        AttachedSideConfig.ELECTRIC_MACHINE,
+        MekanicalCrusherBlockEntity::addContainersToItem,
+        ::MekanicalCrusherBlockEntity,
+        MekanicalCrusherBlockEntity::class.java
+    ) { builder ->
+        builder
+            .with(AttributeDescription("A simple machine used for crushing items."))
+            .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
+            .withEnergyConfig(MekanismConfig.usage.crusher, MekanismConfig.storage.crusher)
     }
 
     val MAGMA_CUBE_HEATER: SimpleMachineRegistryObject<MagmaCubeHeaterBlockEntity> = REGISTRY.registerSimple(
