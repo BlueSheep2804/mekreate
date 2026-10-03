@@ -5,7 +5,7 @@ plugins {
     id("idea")
     alias(libs.plugins.moddevgradle)
     alias(libs.plugins.modpublishplugin)
-    kotlin("jvm") version "2.0.0"
+    kotlin("jvm") version "2.2.0"
 }
 
 tasks.named<Wrapper>("wrapper").configure {
@@ -192,10 +192,11 @@ repositories {
 }
 
 dependencies {
-    implementation("thedarkcolour:kotlinforforge-neoforge:5.9.0")
+    implementation("thedarkcolour:kotlinforforge-neoforge:5.10.0")
 
     implementation("mekanism:Mekanism:${ModInfo.minecraft_version}-${ModInfo.mekanism_version}:all")
     implementation("curse.maven:mekanism-addon-library-1607060:8744214")
+    implementation("curse.maven:mekanism-empowered-core-1256399:8064667")
 
     implementation("curse.maven:iglee-library-541199:7000755")
     implementation("curse.maven:evolved-mekanism-1230085:7599592")

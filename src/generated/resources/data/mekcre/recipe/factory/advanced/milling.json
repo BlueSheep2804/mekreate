@@ -1,0 +1,27 @@
+{
+  "type": "mekanism:mek_data",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "mekanism:alloys/infused"
+    },
+    "C": {
+      "tag": "c:circuits/advanced"
+    },
+    "I": {
+      "tag": "c:ingots/osmium"
+    },
+    "M": {
+      "item": "mekcre:basic_milling_factory"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IMI",
+    "ACA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekcre:advanced_milling_factory"
+  }
+}

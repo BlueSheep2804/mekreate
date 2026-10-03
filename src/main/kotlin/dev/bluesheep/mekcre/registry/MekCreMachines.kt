@@ -17,6 +17,8 @@ import dev.bluesheep.mekcre.blockentity.machine.MekanicalMillBlockEntity
 import dev.bluesheep.mekcre.blockentity.machine.MekanicalCrusherBlockEntity
 import dev.bluesheep.mekcre.mixin.BlockTypeAccessor
 import dev.bluesheep.mekcre.mixin.BlockTypeBuilderAccessor
+import dev.bluesheep.mekcre.util.MekCreFactoryType
+import dev.bluesheep.mekcre.util.TierExtensions.next
 import mekanism.api.math.MathUtils
 import mekanism.common.MekanismLang
 import mekanism.common.attachments.component.AttachedSideConfig
@@ -35,15 +37,15 @@ import net.minecraft.world.level.block.Block
 object MekCreMachines {
     val REGISTRY = MachineDeferredRegister(MekCreMod.MODID)
 
-    val FACTORIES: Map<String, Map<FactoryTier, GuiSizedMachineRegistryObject<out SingleInputProcessingFactory<*>>>> = mapOf(
+    val FACTORIES: Map<MekCreFactoryType, Map<FactoryTier, GuiSizedMachineRegistryObject<out SingleInputProcessingFactory<*>>>> = mapOf(
         registerFactory(
-            "pressing",
+            MekCreFactoryType.PRESSING,
             PressingFactoryBlockEntity::addContainersToItem,
             ::PressingFactoryBlockEntity,
             PressingFactoryBlockEntity::class.java
         ),
         registerFactory(
-            "milling",
+            MekCreFactoryType.MILLING,
             MillingFactoryBlockEntity::addContainersToItem,
             ::MillingFactoryBlockEntity,
             MillingFactoryBlockEntity::class.java
@@ -59,7 +61,7 @@ object MekCreMachines {
     ) { builder ->
         builder
             .with(
-                AttributeUpgradeable { FACTORIES["pressing"]!![FactoryTier.BASIC]!!.block },
+                AttributeUpgradeable { MekCreFactoryType.PRESSING.factories[FactoryTier.BASIC]!!.block },
                 AttributeDescription("A simple machine used for pressing items.")
             )
             .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
@@ -75,7 +77,7 @@ object MekCreMachines {
     ) { builder ->
         builder
             .with(
-                AttributeUpgradeable { FACTORIES["milling"]!![FactoryTier.BASIC]!!.block },
+                AttributeUpgradeable { MekCreFactoryType.MILLING.factories[FactoryTier.BASIC]!!.block },
                 AttributeDescription("A simple machine used for milling items.")
             )
             .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
@@ -114,14 +116,14 @@ object MekCreMachines {
     }
 
     private fun <BE: SingleInputProcessingFactory<*>> registerFactory(
-        name: String,
+        factoryType: MekCreFactoryType,
         holder: (FactoryTier) -> ((ItemRegistryObject<*>) -> Unit),
         beConstructor: BlockEntityConstructor<BE, Machine<BE>, BlockTile.BlockTileModel<BE, Machine<BE>>>,
         beClass: Class<BE>
-    ): Pair<String, Map<FactoryTier, GuiSizedMachineRegistryObject<BE>>> {
-        return name to FactoryTier.entries.associateWith { tier ->
+    ): Pair<MekCreFactoryType, Map<FactoryTier, GuiSizedMachineRegistryObject<BE>>> {
+        return factoryType to FactoryTier.entries.associateWith { tier ->
             REGISTRY.registerGuiSized(
-                "${tier.name.lowercase()}_${name}_factory",
+                "${tier.name.lowercase()}_${factoryType.name.lowercase()}_factory",
                 AttachedSideConfig.ELECTRIC_MACHINE,
                 holder(tier),
                 beConstructor,
@@ -143,15 +145,11 @@ object MekCreMachines {
                 ((builder as BlockTypeBuilderAccessor).holder as BlockTypeAccessor).setDescription(MekanismLang.DESCRIPTION_FACTORY)
                 if (tier.ordinal < FactoryTier.entries.size - 1) {
                     builder.with(AttributeUpgradeable {
-                        REGISTRY.machines.firstOrNull { it.name == "${tier.next().name.lowercase()}_${name}_factory" }?.block
+                        REGISTRY.machines.firstOrNull { it.name == "${tier.next().name.lowercase()}_${factoryType.name.lowercase()}_factory" }?.block
                     })
                 }
                 return@registerGuiSized builder
             }
         }
-    }
-
-    private fun FactoryTier.next(): FactoryTier {
-        return FactoryTier.entries[(this.ordinal + 1) % FactoryTier.entries.size]
     }
 }

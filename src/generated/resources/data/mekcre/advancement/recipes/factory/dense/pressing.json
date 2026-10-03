@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "evolvedmekanism"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mekcre_quantum_pressing_factory": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekcre:quantum_pressing_factory"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mekcre:factory/dense/pressing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mekcre_quantum_pressing_factory"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mekcre:factory/dense/pressing"
+    ]
+  }
+}

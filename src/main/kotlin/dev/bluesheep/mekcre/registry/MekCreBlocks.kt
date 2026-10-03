@@ -6,6 +6,7 @@ import com.simibubi.create.foundation.block.connected.AllCTTypes
 import com.simibubi.create.foundation.block.connected.CTSpriteShifter
 import com.simibubi.create.foundation.data.BlockStateGen
 import com.simibubi.create.foundation.data.BuilderTransformers
+import com.simibubi.create.foundation.data.CreateRegistrate
 import com.simibubi.create.foundation.data.ModelGen.customItemModel
 import com.simibubi.create.foundation.data.TagGen.axeOrPickaxe
 import com.tterrag.registrate.util.entry.BlockEntry
@@ -19,13 +20,14 @@ import net.minecraft.world.level.material.MapColor
 import net.neoforged.neoforge.client.model.generators.ModelFile
 
 object MekCreBlocks {
+    // .transformの型引数は省略するとエラー吐く
     val MECHANICAL_INFUSER: BlockEntry<MechanicalInfuserBlock> = REGISTRATE.block(
         "mechanical_infuser",
         ::MechanicalInfuserBlock
     )
         .initialProperties { Blocks.ANDESITE }
         .properties { it.noOcclusion() }
-        .transform(axeOrPickaxe())
+        .transform(axeOrPickaxe<MechanicalInfuserBlock, CreateRegistrate>())
         .blockstate(BlockStateGen.horizontalBlockProvider(true))
         .item(::AssemblyOperatorBlockItem)
         .transform(customItemModel())
@@ -36,7 +38,7 @@ object MekCreBlocks {
         ::CasingBlock
     )
         .properties { it.mapColor(MapColor.WOOD) }
-        .transform(BuilderTransformers.casing {
+        .transform(BuilderTransformers.casing<CasingBlock> {
             CTSpriteShifter.getCT(
                 AllCTTypes.OMNIDIRECTIONAL,
                 LocationUtil.rl("block/osmium_casing"),

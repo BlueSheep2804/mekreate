@@ -18,12 +18,12 @@ class MekCreBlockModelProvider(
     existingFileHelper
 ) {
     override fun registerStatesAndModels() {
-        MekCreMachines.FACTORIES.forEach { (name, machines) ->
+        MekCreMachines.FACTORIES.forEach { (type, machines) ->
             machines.forEach { (tier, machine) ->
                 horizontalBlock(
                     machine.block.get(),
                     models().getBuilder("block/${machine.id.path}")
-                        .parent(ModelFile.UncheckedModelFile(LocationUtil.rl("block/factory/$name")))
+                        .parent(ModelFile.UncheckedModelFile(LocationUtil.rl("block/factory/${type.name.lowercase()}")))
                 )
             }
         }

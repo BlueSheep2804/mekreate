@@ -5,6 +5,7 @@ import com.simibubi.create.compat.jei.category.MysteriousItemConversionCategory
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.LocationUtil
 import dev.bluesheep.mekcre.registry.MekCreBlocks
+import dev.bluesheep.mekcre.util.MekCreFactoryType
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.registration.IRecipeCatalystRegistration
@@ -36,13 +37,13 @@ class MekCreJeiPlugin : IModPlugin {
         registration.jeiHelpers.getRecipeType(LocationUtil.rlCreate("pressing"))
             .ifPresent {
                 registration.addRecipeCatalyst(MekCreMachines.MEKANICAL_PRESS, it)
-                registration.addRecipeCatalysts(it, *MekCreMachines.FACTORIES["pressing"]!!.entries.map { it.value }.toTypedArray())
+                registration.addRecipeCatalysts(it, *MekCreFactoryType.PRESSING.factories.map { it.value }.toTypedArray())
             }
 
         registration.jeiHelpers.getRecipeType(LocationUtil.rlCreate("milling"))
             .ifPresent {
                 registration.addRecipeCatalyst(MekCreMachines.MEKANICAL_MILL, it)
-                registration.addRecipeCatalysts(it, *MekCreMachines.FACTORIES["milling"]!!.entries.map { it.value }.toTypedArray())
+                registration.addRecipeCatalysts(it, *MekCreFactoryType.MILLING.factories.map { it.value }.toTypedArray())
             }
     }
 }
