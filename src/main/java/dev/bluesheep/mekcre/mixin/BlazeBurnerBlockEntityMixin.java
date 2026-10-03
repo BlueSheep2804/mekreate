@@ -5,7 +5,6 @@ import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import dev.bluesheep.mekcre.mixinImpl.BlazeBurnerBlockEntityMixinImpl;
 import mekanism.api.heat.IHeatCapacitor;
 import mekanism.api.heat.IHeatHandler;
-import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.heat.ITileHeatHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -20,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(BlazeBurnerBlockEntity.class)
+@Mixin(value = BlazeBurnerBlockEntity.class, remap = false)
 public abstract class BlazeBurnerBlockEntityMixin extends SmartBlockEntity implements ITileHeatHandler {
     public BlazeBurnerBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -32,7 +31,7 @@ public abstract class BlazeBurnerBlockEntityMixin extends SmartBlockEntity imple
     }
 
     @Override
-    public List<IHeatCapacitor> getHeatCapacitors(@Nullable Direction side) {
+    public @NotNull List<IHeatCapacitor> getHeatCapacitors(@Nullable Direction side) {
         return BlazeBurnerBlockEntityMixinImpl.getHeatCapacitors((BlazeBurnerBlockEntity) (Object) this);
     }
 
