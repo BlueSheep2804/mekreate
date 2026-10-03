@@ -197,6 +197,9 @@ dependencies {
     implementation("mekanism:Mekanism:${ModInfo.minecraft_version}-${ModInfo.mekanism_version}:all")
     implementation("curse.maven:mekanism-addon-library-1607060:8744214")
 
+    implementation("curse.maven:iglee-library-541199:7000755")
+    implementation("curse.maven:evolved-mekanism-1230085:7599592")
+
     implementation("com.simibubi.create:create-${ModInfo.minecraft_version}:${ModInfo.create_version}:slim") { isTransitive = false }
     implementation("net.createmod.ponder:ponder-neoforge:${ModInfo.ponder_version}+mc${ModInfo.minecraft_version}")
     compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${ModInfo.minecraft_version}:${ModInfo.flywheel_version}")

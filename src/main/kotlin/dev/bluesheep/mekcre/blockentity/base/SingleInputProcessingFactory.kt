@@ -57,7 +57,7 @@ abstract class SingleInputProcessingFactory<R: ProcessingRecipe<*, *>>(blockProv
 
     private lateinit var inputSlot: Array<InputInventorySlot>
     private lateinit var outputSlot: Array<Array<OutputInventorySlot>>
-    private lateinit var energySlot: EnergyInventorySlot
+    lateinit var energySlot: EnergyInventorySlot
 
     private val inputHandler = inputSlot.map {
         InputHelper.getInputHandler(it, RecipeError.NOT_ENOUGH_INPUT)
@@ -104,7 +104,26 @@ abstract class SingleInputProcessingFactory<R: ProcessingRecipe<*, *>>(blockProv
             )
         }
         outputSlot = MachineSlotUtil.multipleOutputSlotForFactory(recipeCacheUnpauseListeners, getOutputCount(), tier)
-        energySlot = EnergyInventorySlot.fillOrConvert(energyContainer, this::level, listener, 7, 13)
+
+        energySlot = if (tier.ordinal > FactoryTier.ULTIMATE.ordinal) {
+            val imageWidth = 176 + 38 * (tier.ordinal - 4 + 1) + 9
+            EnergyInventorySlot.fillOrConvert(
+                energyContainer,
+                this::level,
+                listener,
+                8 + (imageWidth / 2 - 180 / 2) - 22,
+                124 + 18 * getOutputCount() + 1
+            )
+        } else {
+            EnergyInventorySlot.fillOrConvert(
+                energyContainer,
+                this::level,
+                listener,
+                7,
+                13
+            )
+        }
+
         val builder = InventorySlotHelper.forSideWithConfig(this)
         for (i in 0 until tier.processes) {
             builder.addSlot(inputSlot[i])
@@ -151,12 +170,16 @@ abstract class SingleInputProcessingFactory<R: ProcessingRecipe<*, *>>(blockProv
     }
 
     override fun getExtraWidth(): Int {
-        return if (tier == FactoryTier.ULTIMATE) 34 else 0
+        return when (tier.processes) {
+            9 -> 34
+            in 10..Int.MAX_VALUE -> 38 * (tier.ordinal - FactoryTier.ULTIMATE.ordinal) + 9
+            else -> 0
+        }
     }
 
     override fun getExtraHeight(): Int {
         return if (getOutputCount() > 1) {
-            21 + 18 * (getOutputCount() - 2)
+            19 + 18 * (getOutputCount() - 2)
         } else 0
     }
 

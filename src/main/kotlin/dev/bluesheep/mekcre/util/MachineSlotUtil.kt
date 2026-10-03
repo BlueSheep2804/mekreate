@@ -48,20 +48,19 @@ object MachineSlotUtil {
         val baseXMult = getBaseXMult(tier)
         return Array(tier.processes) { processIndex ->
             Array(size) { index ->
-                when (size) {
-                    in 1..4 -> (baseX + processIndex * baseXMult) to 57 + 18 * index
-                    else -> OUTPUT_BASE_X to OUTPUT_BASE_Y
-                }
+                (baseX + processIndex * baseXMult) to 57 + 18 * index
             }
         }
     }
 
     fun getBaseX(tier: FactoryTier): Int {
-        return when (tier) {
-            FactoryTier.BASIC -> 55
-            FactoryTier.ADVANCED -> 35
-            FactoryTier.ELITE -> 29
-            else -> 27
+        // Enumを網羅するとelseが無視される(コンパイル時に消える…?)
+        return when (tier.ordinal) {
+            FactoryTier.BASIC.ordinal -> 55
+            FactoryTier.ADVANCED.ordinal -> 35
+            FactoryTier.ELITE.ordinal -> 29
+            FactoryTier.ULTIMATE.ordinal -> 27
+            else -> 9
         }
     }
 

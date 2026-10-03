@@ -13,6 +13,46 @@
     "mekcre:mekanical_press",
     "mekcre:mekanical_mill",
     "mekcre:mekanical_crusher",
-    "mekcre:magma_cube_heater"
+    "mekcre:magma_cube_heater",
+    {
+      "id": "mekcre:overclocked_pressing_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:quantum_pressing_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:dense_pressing_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:multiversal_pressing_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:creative_pressing_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:overclocked_milling_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:quantum_milling_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:dense_milling_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:multiversal_milling_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:creative_milling_factory",
+      "required": false
+    }
   ]
 }

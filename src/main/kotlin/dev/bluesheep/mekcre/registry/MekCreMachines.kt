@@ -141,7 +141,7 @@ object MekCreMachines {
                         )
                     }
                 ((builder as BlockTypeBuilderAccessor).holder as BlockTypeAccessor).setDescription(MekanismLang.DESCRIPTION_FACTORY)
-                if (tier != FactoryTier.ULTIMATE) {
+                if (tier.ordinal < FactoryTier.entries.size - 1) {
                     builder.with(AttributeUpgradeable {
                         REGISTRY.machines.firstOrNull { it.name == "${tier.next().name.lowercase()}_${name}_factory" }?.block
                     })
