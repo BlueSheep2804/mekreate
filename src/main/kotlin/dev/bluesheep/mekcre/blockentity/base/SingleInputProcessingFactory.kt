@@ -117,7 +117,7 @@ abstract class SingleInputProcessingFactory<R: ProcessingRecipe<*, *>>(blockProv
         } else {
             EnergyInventorySlot.fillOrConvert(
                 energyContainer,
-                this::level,
+                this::getLevel,
                 listener,
                 7,
                 13

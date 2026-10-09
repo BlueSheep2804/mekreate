@@ -39,30 +39,64 @@ class ProcessingOutputHandler(
         tracker: CachedRecipe.OperationTracker,
         toOutput: List<ItemStack>
     ) {
-        if (toOutput.isEmpty()) return
-        val emptySlots = slots.filter { it.isEmpty }
-        val emptySlotNeeded = mutableListOf<Int>()
-        toOutput.forEachIndexed { index, stack ->
-            val stackableSlots = slots.filter { ItemStack.isSameItemSameComponents(it.stack, stack) }
-            if (stackableSlots.isNotEmpty()) {
-                var remaining = stack
-                for (slot in stackableSlots) {
-                    remaining = slot.insertItem(remaining, Action.SIMULATE, AutomationType.INTERNAL)
-                    if (remaining.isEmpty) break
-                }
-                if (!remaining.isEmpty) {
-                    emptySlotNeeded.add(index)
-                }
-            } else {
-                emptySlotNeeded.add(index)
+        val outputs = toOutput.filterNot { it.isEmpty }
+        if (outputs.isEmpty()) return
+
+        // Cache insertion limits without changing the real inventory.
+        val capacities = outputs.map { stack ->
+            IntArray(slots.size) { index ->
+                val probe = stack.copyWithCount(Int.MAX_VALUE)
+                Int.MAX_VALUE - slots[index].insertItem(probe, Action.SIMULATE, AutomationType.INTERNAL).count
             }
         }
 
-        if (emptySlotNeeded.isNotEmpty() && emptySlots.size < emptySlotNeeded.size) {
+        fun canFit(operations: Int): Boolean {
+            val contents = slots.map { it.stack }.toMutableList()
+            val reserved = IntArray(slots.size)
+            outputs.forEachIndexed { outputIndex, stack ->
+                var remaining = stack.count.toLong() * operations
+                // Match handleOutput: fill matching stacks before claiming empty slots.
+                for (empty in listOf(false, true)) {
+                    for (index in slots.indices) {
+                        val current = contents[index]
+                        if (empty) {
+                            if (!current.isEmpty) continue
+                        } else if (current.isEmpty || !ItemStack.isSameItemSameComponents(current, stack)) {
+                            continue
+                        }
+                        val available = (capacities[outputIndex][index] - reserved[index]).coerceAtLeast(0)
+                        val inserted = minOf(remaining, available.toLong()).toInt()
+                        if (inserted > 0) {
+                            contents[index] = stack
+                            reserved[index] += inserted
+                            remaining -= inserted
+                        }
+                        if (remaining == 0L) break
+                    }
+                    if (remaining == 0L) break
+                }
+                if (remaining > 0) return false
+            }
+            return true
+        }
+
+        // OperationTracker has no maximum getter, so calculate the output limit independently.
+        var supported = 0
+        var upper = outputs.indices.minOf { index ->
+            (capacities[index].sumOf { it.toLong() } / outputs[index].count)
+                .coerceAtMost(Int.MAX_VALUE.toLong()).toInt()
+        }
+        while (supported < upper) {
+            val candidate = supported + ((upper.toLong() - supported + 1) / 2).toInt()
+            if (canFit(candidate)) {
+                supported = candidate
+            } else {
+                upper = candidate - 1
+            }
+        }
+        tracker.updateOperations(supported)
+        if (supported == 0) {
             tracker.addError(notEnoughSpaceError)
-            tracker.updateOperations(0)
-        } else {
-            tracker.updateOperations(1)
         }
     }
 }

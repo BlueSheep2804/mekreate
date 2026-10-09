@@ -28,6 +28,16 @@ class MekCreBlockModelProvider(
             }
         }
 
+        MekCreMachines.SEMI_FACTORIES.forEach { type, machines ->
+            machines.forEach { (tier, machine) ->
+                horizontalBlock(
+                    machine.block.get(),
+                    models().getBuilder("block/${machine.id.path}")
+                        .parent(ModelFile.UncheckedModelFile(LocationUtil.rl("block/semifactory/${type.name.lowercase()}")))
+                )
+            }
+        }
+
         horizontalBlock(
             MekCreMachines.MAGMA_CUBE_HEATER.block.get(),
             models().withExistingParent("magma_cube_heater", LocationUtil.rlCreate("block/blaze_burner/block"))

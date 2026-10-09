@@ -38,6 +38,7 @@ object MachineSlotUtil {
                 in 1..2 -> OUTPUT_BASE_X + 18 * (it % 2) to OUTPUT_BASE_Y + 18 * (it / 2)
                 in 3..4 -> OUTPUT_BASE_X + 18 * (it % 2) to OUTPUT_BASE_Y - 9 + 18 * (it / 2)
                 in 5..9 -> OUTPUT_BASE_X + 18 * (it % 3) to OUTPUT_BASE_Y - 18 + 18 * (it / 3)
+                in 10..16 -> OUTPUT_BASE_X - 18 + 18 * (it % 4) to OUTPUT_BASE_Y - 18 + 18 * (it / 4)
                 else -> OUTPUT_BASE_X to OUTPUT_BASE_Y
             }
         }

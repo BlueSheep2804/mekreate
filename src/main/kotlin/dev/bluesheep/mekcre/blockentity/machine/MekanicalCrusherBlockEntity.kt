@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
 
 class MekanicalCrusherBlockEntity(blockProvider: Holder<Block>, pos: BlockPos, state: BlockState) : SingleInputProcessingMachine<CrushingRecipe>(
-    blockProvider, pos, state
+    blockProvider, pos, state, 1
 ) {
     companion object {
         fun addContainersToItem(holder: ItemRegistryObject<*>) {

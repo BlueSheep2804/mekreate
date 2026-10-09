@@ -10,6 +10,7 @@ import dev.bluesheep.mekcre.block.attribute.AttributeNoOcclusion
 import dev.bluesheep.mekcre.block.attribute.AttributeStateHeatLevel
 import dev.bluesheep.mekcre.blockentity.MagmaCubeHeaterBlockEntity
 import dev.bluesheep.mekcre.blockentity.base.SingleInputProcessingFactory
+import dev.bluesheep.mekcre.blockentity.base.SingleInputProcessingSemiFactory
 import dev.bluesheep.mekcre.blockentity.machine.MekanicalPressBlockEntity
 import dev.bluesheep.mekcre.blockentity.factory.PressingFactoryBlockEntity
 import dev.bluesheep.mekcre.blockentity.factory.MillingFactoryBlockEntity
@@ -18,6 +19,7 @@ import dev.bluesheep.mekcre.blockentity.machine.MekanicalCrusherBlockEntity
 import dev.bluesheep.mekcre.mixin.BlockTypeAccessor
 import dev.bluesheep.mekcre.mixin.BlockTypeBuilderAccessor
 import dev.bluesheep.mekcre.util.MekCreFactoryType
+import dev.bluesheep.mekcre.util.MekCreSemiFactoryType
 import dev.bluesheep.mekcre.util.TierExtensions.next
 import mekanism.api.math.MathUtils
 import mekanism.common.MekanismLang
@@ -51,6 +53,10 @@ object MekCreMachines {
             MillingFactoryBlockEntity::class.java
         )
     )
+
+    val SEMI_FACTORIES: Map<MekCreSemiFactoryType<out SingleInputProcessingSemiFactory<*>>, Map<FactoryTier, GuiSizedMachineRegistryObject<out SingleInputProcessingSemiFactory<*>>>> = MekCreSemiFactoryType.ALL.associateWith { type ->
+        type.register(REGISTRY)
+    }
 
     val MEKANICAL_PRESS: SimpleMachineRegistryObject<MekanicalPressBlockEntity> = REGISTRY.registerSimple(
         "mekanical_press",
@@ -92,7 +98,10 @@ object MekCreMachines {
         MekanicalCrusherBlockEntity::class.java
     ) { builder ->
         builder
-            .with(AttributeDescription("A simple machine used for crushing items."))
+            .with(
+                AttributeUpgradeable { MekCreSemiFactoryType.CRUSHING.factories[FactoryTier.BASIC]!!.block },
+                AttributeDescription("A simple machine used for crushing items.")
+            )
             .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
             .withEnergyConfig(MekanismConfig.usage.crusher, MekanismConfig.storage.crusher)
     }

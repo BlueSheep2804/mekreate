@@ -6,6 +6,7 @@ import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.LocationUtil
 import dev.bluesheep.mekcre.registry.MekCreBlocks
 import dev.bluesheep.mekcre.util.MekCreFactoryType
+import dev.bluesheep.mekcre.util.MekCreSemiFactoryType
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.registration.IRecipeCatalystRegistration
@@ -32,6 +33,7 @@ class MekCreJeiPlugin : IModPlugin {
         registration.jeiHelpers.getRecipeType(LocationUtil.rlCreate("crushing"))
             .ifPresent {
                 registration.addRecipeCatalyst(MekCreMachines.MEKANICAL_CRUSHER, it)
+                registration.addRecipeCatalysts(it, *MekCreSemiFactoryType.CRUSHING.factories.map { it.value }.toTypedArray())
             }
 
         registration.jeiHelpers.getRecipeType(LocationUtil.rlCreate("pressing"))

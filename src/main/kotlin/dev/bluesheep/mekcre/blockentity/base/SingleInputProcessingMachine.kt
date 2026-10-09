@@ -33,7 +33,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockState
 
-abstract class SingleInputProcessingMachine<R: ProcessingRecipe<*, *>>(blockProvider: Holder<Block>, pos: BlockPos, state: BlockState) : BEMultiScaledProgressMachine<R>(
+abstract class SingleInputProcessingMachine<R: ProcessingRecipe<*, *>>(blockProvider: Holder<Block>, pos: BlockPos, state: BlockState, baselineMaxOperations: Int) : BEMultiScaledProgressMachine<R>(
     blockProvider, pos, state,
     listOf(
         RecipeError.NOT_ENOUGH_INPUT,
@@ -41,16 +41,16 @@ abstract class SingleInputProcessingMachine<R: ProcessingRecipe<*, *>>(blockProv
         RecipeError.INPUT_DOESNT_PRODUCE_OUTPUT,
         RecipeError.NOT_ENOUGH_ENERGY
     ),
-    1,
+    baselineMaxOperations,
     { BASE_TICKS_REQUIRED }
 ) {
     companion object {
         const val BASE_TICKS_REQUIRED = (10 * SharedConstants.TICKS_PER_SECOND)
     }
 
-    private lateinit var inputSlot: InputInventorySlot
-    private lateinit var outputSlot: Array<OutputInventorySlot>
-    private lateinit var energySlot: EnergyInventorySlot
+    protected lateinit var inputSlot: InputInventorySlot
+    protected lateinit var outputSlot: Array<OutputInventorySlot>
+    protected lateinit var energySlot: EnergyInventorySlot
 
     private val inputHandler = InputHelper.getInputHandler(inputSlot, RecipeError.NOT_ENOUGH_INPUT)
     private val outputHandler = ProcessingOutputHandler(
@@ -76,17 +76,25 @@ abstract class SingleInputProcessingMachine<R: ProcessingRecipe<*, *>>(blockProv
 
     abstract fun getRecipeViewerTypes(): Array<RVMekALRecipeTypeWrapper<*, *, *>>
 
+    open fun getInputInventorySlot(recipeCacheListener: IContentsListener?): InputInventorySlot {
+        return InputInventorySlot.at(
+            recipeCacheListener,
+            56, 17
+        )
+    }
+
+    open fun getEnergySlot(energyContainer: IEnergyContainer, listener: IContentsListener?): EnergyInventorySlot {
+        return EnergyInventorySlot.fillOrConvert(energyContainer, this::getLevel, listener, 56, 53)
+    }
+
     override fun getInitialInventory(
         listener: IContentsListener?,
         recipeCacheListener: IContentsListener?,
         recipeCacheUnpauseListener: IContentsListener?
     ): IInventorySlotHolder? {
-        inputSlot = InputInventorySlot.at(
-            recipeCacheListener,
-            56, 17
-        )
+        inputSlot = getInputInventorySlot(recipeCacheListener)
         outputSlot = MachineSlotUtil.multipleOutputSlot(recipeCacheUnpauseListener, getOutputCount())
-        energySlot = EnergyInventorySlot.fillOrConvert(energyContainer, this::level, listener, 56, 53)
+        energySlot = getEnergySlot(energyContainer, listener)
         val builder = InventorySlotHelper.forSideWithConfig(this)
         builder.addSlot(inputSlot)
             .tracksWarnings { it.warning(WarningTracker.WarningType.NO_MATCHING_RECIPE, getWarningCheck(RecipeError.NOT_ENOUGH_INPUT)) }

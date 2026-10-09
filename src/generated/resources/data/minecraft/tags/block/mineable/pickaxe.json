@@ -10,6 +10,10 @@
     "mekcre:advanced_milling_factory",
     "mekcre:elite_milling_factory",
     "mekcre:ultimate_milling_factory",
+    "mekcre:basic_crushing_semi_factory",
+    "mekcre:advanced_crushing_semi_factory",
+    "mekcre:elite_crushing_semi_factory",
+    "mekcre:ultimate_crushing_semi_factory",
     "mekcre:mekanical_press",
     "mekcre:mekanical_mill",
     "mekcre:mekanical_crusher",
@@ -52,6 +56,26 @@
     },
     {
       "id": "mekcre:creative_milling_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:overclocked_crushing_semi_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:quantum_crushing_semi_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:dense_crushing_semi_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:multiversal_crushing_semi_factory",
+      "required": false
+    },
+    {
+      "id": "mekcre:creative_crushing_semi_factory",
       "required": false
     }
   ]

@@ -3,11 +3,13 @@ package dev.bluesheep.mekcre
 import com.takenokoshi.mekaddonlib.registration.GuiSizedMachineRegistryObject
 import dev.bluesheep.mekcre.block.renderer.MagmaCubeHeaterBlockRenderer
 import dev.bluesheep.mekcre.blockentity.base.SingleInputProcessingFactory
+import dev.bluesheep.mekcre.blockentity.base.SingleInputProcessingSemiFactory
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.registry.MekCrePartialModels
 import dev.bluesheep.mekcre.screen.MagmaCubeHeaterScreen
 import dev.bluesheep.mekcre.screen.SingleInputProcessingFactoryScreen
 import dev.bluesheep.mekcre.screen.SingleInputProcessingMachineScreen
+import dev.bluesheep.mekcre.screen.SingleInputProcessingSemiFactoryScreen
 import mekanism.client.ClientRegistrationUtil
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers
 import net.neoforged.api.distmarker.Dist
@@ -24,14 +26,17 @@ object MekCreClient {
 
     @SubscribeEvent
     fun registerScreens(event: RegisterMenuScreensEvent) {
+        MekCreMachines.FACTORIES.forEach { (name, machines) ->
+            machines.forEach { (tier, machine) -> registerFactoryScreen(event, machine) }
+        }
+        MekCreMachines.SEMI_FACTORIES.forEach { (name, machines) ->
+            machines.forEach { (tier, machine) -> registerSemiFactoryScreen(event, machine) }
+        }
         ClientRegistrationUtil.registerScreen(
             event,
             MekCreMachines.MEKANICAL_PRESS.container,
             ::SingleInputProcessingMachineScreen
         )
-        MekCreMachines.FACTORIES.forEach { (name, machines) ->
-            machines.forEach { (tier, machine) -> registerFactoryScreen(event, machine) }
-        }
         ClientRegistrationUtil.registerScreen(
             event,
             MekCreMachines.MEKANICAL_MILL.container,
@@ -62,6 +67,14 @@ object MekCreClient {
             event,
             machine.container,
             ::SingleInputProcessingFactoryScreen
+        )
+    }
+
+    private fun <BE: SingleInputProcessingSemiFactory<*>> registerSemiFactoryScreen(event: RegisterMenuScreensEvent, machine: GuiSizedMachineRegistryObject<BE>) {
+        ClientRegistrationUtil.registerScreen(
+            event,
+            machine.container,
+            ::SingleInputProcessingSemiFactoryScreen
         )
     }
 }
