@@ -13,7 +13,8 @@ import dev.bluesheep.mekcre.recipe.create.InfusingRecipe
 import dev.bluesheep.mekcre.registry.MekCreBlocks
 import dev.bluesheep.mekcre.registry.MekCreItems
 import dev.bluesheep.mekcre.registry.MekCreMachines
-import dev.bluesheep.mekcre.util.MekCreFactoryType
+import dev.bluesheep.mekcre.util.FactoryType
+import dev.bluesheep.mekcre.registry.MekCreFactoryType
 import dev.lapis256.mekanism_empowered.core.datagen.MekanismDataShapedRecipeBuilder
 import fr.iglee42.evolvedmekanism.EvolvedMekanism
 import fr.iglee42.evolvedmekanism.registries.EMTags
@@ -105,8 +106,8 @@ class MekCreRecipeProvider(output: PackOutput, registries: CompletableFuture<Hol
             .unlockedByHasItem(LocationUtil.tagItemCommon("plates/osmium"))
             .save(recipeOutput)
 
-        MekCreMachines.FACTORIES.forEach { (type, map) ->
-            map.forEach { (tier, machine) ->
+        MekCreFactoryType.ALL.forEach { type ->
+            type.factories.forEach { (tier, machine) ->
                 addFactoryRecipe(recipeOutput, type, machine, tier)
             }
         }
@@ -174,7 +175,7 @@ class MekCreRecipeProvider(output: PackOutput, registries: CompletableFuture<Hol
         return this.unlockedBy("has_${tag.location.toLanguageKey().replace(Regex("[./]"), "_")}", has(tag))
     }
 
-    private fun addFactoryRecipe(recipeOutput: RecipeOutput, factoryType: MekCreFactoryType, machine: ItemLike, tier: FactoryTier) {
+    private fun addFactoryRecipe(recipeOutput: RecipeOutput, factoryType: FactoryType<*>, machine: ItemLike, tier: FactoryTier) {
         val builder = MekanismDataShapedRecipeBuilder(machine)
             .pattern("ACA")
             .pattern("IMI")

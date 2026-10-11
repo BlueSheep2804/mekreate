@@ -5,8 +5,8 @@ import com.simibubi.create.compat.jei.category.MysteriousItemConversionCategory
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.LocationUtil
 import dev.bluesheep.mekcre.registry.MekCreBlocks
-import dev.bluesheep.mekcre.util.MekCreFactoryType
-import dev.bluesheep.mekcre.util.MekCreSemiFactoryType
+import dev.bluesheep.mekcre.registry.MekCreFactoryType
+import dev.bluesheep.mekcre.registry.MekCreSemiFactoryType
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.registration.IRecipeCatalystRegistration

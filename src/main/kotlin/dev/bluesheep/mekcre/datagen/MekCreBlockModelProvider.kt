@@ -3,6 +3,8 @@ package dev.bluesheep.mekcre.datagen
 import dev.bluesheep.mekcre.MekCreMod
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.LocationUtil
+import dev.bluesheep.mekcre.registry.MekCreFactoryType
+import dev.bluesheep.mekcre.registry.MekCreSemiFactoryType
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
@@ -18,8 +20,8 @@ class MekCreBlockModelProvider(
     existingFileHelper
 ) {
     override fun registerStatesAndModels() {
-        MekCreMachines.FACTORIES.forEach { (type, machines) ->
-            machines.forEach { (tier, machine) ->
+        MekCreFactoryType.ALL.forEach { type ->
+            type.factories.forEach { (tier, machine) ->
                 horizontalBlock(
                     machine.block.get(),
                     models().getBuilder("block/${machine.id.path}")
@@ -28,8 +30,8 @@ class MekCreBlockModelProvider(
             }
         }
 
-        MekCreMachines.SEMI_FACTORIES.forEach { type, machines ->
-            machines.forEach { (tier, machine) ->
+        MekCreSemiFactoryType.ALL.forEach { type ->
+            type.factories.forEach { (tier, machine) ->
                 horizontalBlock(
                     machine.block.get(),
                     models().getBuilder("block/${machine.id.path}")
