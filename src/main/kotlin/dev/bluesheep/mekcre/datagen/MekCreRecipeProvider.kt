@@ -15,6 +15,7 @@ import dev.bluesheep.mekcre.registry.MekCreItems
 import dev.bluesheep.mekcre.registry.MekCreMachines
 import dev.bluesheep.mekcre.util.FactoryType
 import dev.bluesheep.mekcre.registry.MekCreFactoryType
+import dev.bluesheep.mekcre.registry.MekCreSemiFactoryType
 import dev.lapis256.mekanism_empowered.core.datagen.MekanismDataShapedRecipeBuilder
 import fr.iglee42.evolvedmekanism.EvolvedMekanism
 import fr.iglee42.evolvedmekanism.registries.EMTags
@@ -111,6 +112,11 @@ class MekCreRecipeProvider(output: PackOutput, registries: CompletableFuture<Hol
                 addFactoryRecipe(recipeOutput, type, machine, tier)
             }
         }
+        MekCreSemiFactoryType.ALL.forEach { type ->
+            type.factories.forEach { (tier, machine) ->
+                addFactoryRecipe(recipeOutput, type, machine, tier, "semifactory")
+            }
+        }
     }
 
     private fun sequencedRecipes(recipeOutput: RecipeOutput) {
@@ -175,7 +181,7 @@ class MekCreRecipeProvider(output: PackOutput, registries: CompletableFuture<Hol
         return this.unlockedBy("has_${tag.location.toLanguageKey().replace(Regex("[./]"), "_")}", has(tag))
     }
 
-    private fun addFactoryRecipe(recipeOutput: RecipeOutput, factoryType: FactoryType<*>, machine: ItemLike, tier: FactoryTier) {
+    private fun addFactoryRecipe(recipeOutput: RecipeOutput, factoryType: FactoryType<*>, machine: ItemLike, tier: FactoryTier, rootName: String = "factory") {
         val builder = MekanismDataShapedRecipeBuilder(machine)
             .pattern("ACA")
             .pattern("IMI")
@@ -234,7 +240,7 @@ class MekCreRecipeProvider(output: PackOutput, registries: CompletableFuture<Hol
             recipeOutput.withConditions(ModLoadedCondition(EvolvedMekanism.MODID))
         } else recipeOutput
 
-        builder.save(output, LocationUtil.rl("factory/${tier.name.lowercase()}/${factoryType.name.lowercase()}"))
+        builder.save(output, LocationUtil.rl("$rootName/${tier.name.lowercase()}/${factoryType.name.lowercase()}"))
     }
 
     private fun itemApplicationRecipeBuilder(recipeId: ResourceLocation): ItemApplicationRecipe.Builder<ItemApplicationRecipe> {

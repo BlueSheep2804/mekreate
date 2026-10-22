@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mekcre_advanced_crushing_semi_factory": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekcre:advanced_crushing_semi_factory"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mekcre:semifactory/elite/crushing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mekcre_advanced_crushing_semi_factory"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mekcre:semifactory/elite/crushing"
+    ]
+  }
+}
