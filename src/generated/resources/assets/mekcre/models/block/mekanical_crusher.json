@@ -4,6 +4,7 @@
     "down": "mekcre:block/mekanical_crusher_bottom",
     "front": "mekcre:block/mekanical_crusher_front",
     "sides": "mekcre:block/mekanical_crusher_side",
+    "south": "mekcre:block/mekanical_crusher_back",
     "up": "mekcre:block/mekanical_crusher_top"
   }
 }

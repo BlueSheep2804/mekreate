@@ -4,6 +4,7 @@
     "down": "mekcre:block/mekanical_press_bottom",
     "front": "mekcre:block/mekanical_press_front",
     "sides": "mekcre:block/mekanical_press_side",
+    "south": "mekcre:block/mekanical_press_back",
     "up": "mekcre:block/mekanical_press_top"
   }
 }

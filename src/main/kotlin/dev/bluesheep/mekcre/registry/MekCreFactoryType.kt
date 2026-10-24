@@ -3,6 +3,7 @@ package dev.bluesheep.mekcre.registry
 import com.takenokoshi.mekaddonlib.registration.BlockEntityConstructor
 import com.takenokoshi.mekaddonlib.registration.GuiSizedMachineRegistryObject
 import com.takenokoshi.mekaddonlib.registration.MachineDeferredRegister
+import dev.bluesheep.mekcre.block.attribute.AttributeNoOcclusion
 import dev.bluesheep.mekcre.blockentity.base.SingleInputProcessingFactory
 import dev.bluesheep.mekcre.blockentity.factory.MillingFactoryBlockEntity
 import dev.bluesheep.mekcre.blockentity.factory.PressingFactoryBlockEntity
@@ -78,7 +79,10 @@ data class MekCreFactoryType<BE: SingleInputProcessingFactory<*>>(
                     beClass
                 ) { builder ->
                     builder
-                        .with(AttributeTier(tier))
+                        .with(
+                            AttributeTier(tier),
+                            AttributeNoOcclusion
+                        )
                         .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)
                         .withEnergyConfig(
                             MekanismConfig.usage.enrichmentChamber

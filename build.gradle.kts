@@ -118,7 +118,8 @@ neoForge {
                 "--output", file("src/generated/resources/").absolutePath,
                 "--existing", file("src/main/resources/").absolutePath,
                 "--existing-mod", "mekanism",
-                "--existing-mod", "create"
+                "--existing-mod", "create",
+                "--existing-mod", "evolvedmekanism"
             )
         }
 

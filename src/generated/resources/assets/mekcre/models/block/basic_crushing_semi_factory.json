@@ -1,3 +1,19 @@
 {
-  "parent": "mekcre:block/semifactory/crushing"
+  "parent": "minecraft:block/block",
+  "children": {
+    "base": {
+      "parent": "mekcre:block/semifactory/crushing"
+    },
+    "front_led": {
+      "parent": "mekanism:block/factory/front_led/basic"
+    }
+  },
+  "item_render_order": [
+    "base",
+    "front_led"
+  ],
+  "loader": "neoforge:composite",
+  "textures": {
+    "particle": "mekcre:block/semifactory/crushing/front"
+  }
 }

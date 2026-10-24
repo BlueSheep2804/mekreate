@@ -1,3 +1,19 @@
 {
-  "parent": "mekcre:block/factory/pressing"
+  "parent": "minecraft:block/block",
+  "children": {
+    "base": {
+      "parent": "mekcre:block/factory/pressing"
+    },
+    "front_led": {
+      "parent": "evolvedmekanism:block/factory/front_led/dense"
+    }
+  },
+  "item_render_order": [
+    "base",
+    "front_led"
+  ],
+  "loader": "neoforge:composite",
+  "textures": {
+    "particle": "mekcre:block/factory/pressing/front"
+  }
 }
