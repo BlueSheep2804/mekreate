@@ -7,7 +7,7 @@ import dev.bluesheep.mekcre.block.attribute.AttributeDescription
 import dev.bluesheep.mekcre.block.attribute.AttributeNoOcclusion
 import dev.bluesheep.mekcre.block.attribute.AttributeStateHeatLevel
 import dev.bluesheep.mekcre.blockentity.MagmaCubeHeaterBlockEntity
-import dev.bluesheep.mekcre.blockentity.machine.MekanicalCrusherBlockEntity
+import dev.bluesheep.mekcre.blockentity.machine.WheelCrusherBlockEntity
 import dev.bluesheep.mekcre.blockentity.machine.MekanicalMillBlockEntity
 import dev.bluesheep.mekcre.blockentity.machine.MekanicalPressBlockEntity
 import mekanism.common.attachments.component.AttachedSideConfig
@@ -59,16 +59,16 @@ object MekCreMachines {
             .withEnergyConfig(MekanismConfig.usage.enrichmentChamber, MekanismConfig.storage.enrichmentChamber)
     }
 
-    val MEKANICAL_CRUSHER: SimpleMachineRegistryObject<MekanicalCrusherBlockEntity> = REGISTRY.registerSimple(
-        "mekanical_crusher",
+    val WHEEL_CRUSHER: SimpleMachineRegistryObject<WheelCrusherBlockEntity> = REGISTRY.registerSimple(
+        "wheel_crusher",
         AttachedSideConfig.ELECTRIC_MACHINE,
-        MekanicalCrusherBlockEntity::addContainersToItem,
-        ::MekanicalCrusherBlockEntity,
-        MekanicalCrusherBlockEntity::class.java
+        WheelCrusherBlockEntity::addContainersToItem,
+        ::WheelCrusherBlockEntity,
+        WheelCrusherBlockEntity::class.java
     ) { builder ->
         builder
             .with(
-                AttributeUpgradeable { MekCreSemiFactoryType.CRUSHING.factories[FactoryTier.BASIC]!!.block },
+                AttributeUpgradeable { MekCreSemiFactoryType.WHEEL_CRUSHING.factories[FactoryTier.BASIC]!!.block },
                 AttributeDescription("A simple machine used for crushing items.")
             )
             .withSideConfig(TransmissionType.ITEM, TransmissionType.ENERGY)

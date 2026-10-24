@@ -14,7 +14,7 @@ object MekCreRecipeViewerTypes {
         CrushingRecipe::class.java,
         MekCreMekanismRecipeTypes.CRUSHING,
         0, 0, 20, 20,
-        MekCreMachines.MEKANICAL_CRUSHER
+        MekCreMachines.WHEEL_CRUSHER
     )
     val PRESSING = RVMekALRecipeTypeWrapper(
         LocationUtil.rlCreate("pressing"),

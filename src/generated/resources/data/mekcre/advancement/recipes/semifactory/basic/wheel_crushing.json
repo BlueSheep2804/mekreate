@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mekcre_wheel_crusher": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekcre:wheel_crusher"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mekcre:semifactory/basic/wheel_crushing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mekcre_wheel_crusher"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mekcre:semifactory/basic/wheel_crushing"
+    ]
+  }
+}

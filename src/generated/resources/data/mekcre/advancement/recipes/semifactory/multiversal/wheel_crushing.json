@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "evolvedmekanism"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mekcre_dense_wheel_crushing_semi_factory": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekcre:dense_wheel_crushing_semi_factory"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mekcre:semifactory/multiversal/wheel_crushing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mekcre_dense_wheel_crushing_semi_factory"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mekcre:semifactory/multiversal/wheel_crushing"
+    ]
+  }
+}

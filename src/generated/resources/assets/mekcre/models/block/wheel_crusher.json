@@ -1,0 +1,10 @@
+{
+  "parent": "mekanism:block/machine",
+  "textures": {
+    "down": "mekcre:block/wheel_crusher_bottom",
+    "front": "mekcre:block/wheel_crusher_front",
+    "sides": "mekcre:block/wheel_crusher_side",
+    "south": "mekcre:block/wheel_crusher_back",
+    "up": "mekcre:block/wheel_crusher_top"
+  }
+}

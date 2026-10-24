@@ -32,8 +32,8 @@ class MekCreJeiPlugin : IModPlugin {
     override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration) {
         registration.jeiHelpers.getRecipeType(LocationUtil.rlCreate("crushing"))
             .ifPresent {
-                registration.addRecipeCatalyst(MekCreMachines.MEKANICAL_CRUSHER, it)
-                registration.addRecipeCatalysts(it, *MekCreSemiFactoryType.CRUSHING.factories.map { it.value }.toTypedArray())
+                registration.addRecipeCatalyst(MekCreMachines.WHEEL_CRUSHER, it)
+                registration.addRecipeCatalysts(it, *MekCreSemiFactoryType.WHEEL_CRUSHING.factories.map { it.value }.toTypedArray())
             }
 
         registration.jeiHelpers.getRecipeType(LocationUtil.rlCreate("pressing"))

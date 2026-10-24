@@ -4,7 +4,7 @@ import com.takenokoshi.mekaddonlib.registration.GuiSizedMachineRegistryObject
 import com.takenokoshi.mekaddonlib.registration.MachineDeferredRegister
 import dev.bluesheep.mekcre.block.attribute.AttributeNoOcclusion
 import dev.bluesheep.mekcre.blockentity.base.SingleInputProcessingSemiFactory
-import dev.bluesheep.mekcre.blockentity.semifactory.CrusherSemiFactoryBlockEntity
+import dev.bluesheep.mekcre.blockentity.semifactory.WheelCrusherSemiFactoryBlockEntity
 import dev.bluesheep.mekcre.mixin.BlockTypeAccessor
 import dev.bluesheep.mekcre.mixin.BlockTypeBuilderAccessor
 import dev.bluesheep.mekcre.screen.SingleInputProcessingSemiFactoryScreen
@@ -32,14 +32,14 @@ data class MekCreSemiFactoryType<BE: SingleInputProcessingSemiFactory<*>>(
     val beClass: Class<BE>
 ): FactoryType<GuiSizedMachineRegistryObject<BE>> {
     companion object {
-        val CRUSHING = MekCreSemiFactoryType(
-            "crushing",
-            { MekCreMachines.MEKANICAL_CRUSHER.block },
-            ::CrusherSemiFactoryBlockEntity,
-            CrusherSemiFactoryBlockEntity::class.java
+        val WHEEL_CRUSHING = MekCreSemiFactoryType(
+            "wheel_crushing",
+            { MekCreMachines.WHEEL_CRUSHER.block },
+            ::WheelCrusherSemiFactoryBlockEntity,
+            WheelCrusherSemiFactoryBlockEntity::class.java
         )
 
-        val ALL = listOf(CRUSHING)
+        val ALL = listOf(WHEEL_CRUSHING)
     }
 
     private val registeredFactories = mutableMapOf<FactoryTier, GuiSizedMachineRegistryObject<BE>>()

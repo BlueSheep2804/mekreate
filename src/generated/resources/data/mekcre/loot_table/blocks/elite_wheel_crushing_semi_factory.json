@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "mekcre:elite_wheel_crushing_semi_factory"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "mekcre:blocks/elite_wheel_crushing_semi_factory"
+}

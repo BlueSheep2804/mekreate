@@ -1,0 +1,27 @@
+{
+  "type": "mekanism:mek_data",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "mekanism:alloys/basic"
+    },
+    "C": {
+      "tag": "c:circuits/basic"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "M": {
+      "item": "mekcre:wheel_crusher"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "IMI",
+    "ACA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekcre:basic_wheel_crushing_semi_factory"
+  }
+}

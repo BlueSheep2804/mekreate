@@ -42,7 +42,7 @@ object MekCreClient {
         )
         ClientRegistrationUtil.registerScreen(
             event,
-            MekCreMachines.MEKANICAL_CRUSHER.container,
+            MekCreMachines.WHEEL_CRUSHER.container,
             ::SingleInputProcessingMachineScreen
         )
         ClientRegistrationUtil.registerScreen(

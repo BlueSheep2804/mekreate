@@ -1,0 +1,19 @@
+{
+  "parent": "minecraft:block/block",
+  "children": {
+    "base": {
+      "parent": "mekcre:block/semifactory/wheel_crushing"
+    },
+    "front_led": {
+      "parent": "evolvedmekanism:block/factory/front_led/multiversal"
+    }
+  },
+  "item_render_order": [
+    "base",
+    "front_led"
+  ],
+  "loader": "neoforge:composite",
+  "textures": {
+    "particle": "mekcre:block/semifactory/wheel_crushing/front"
+  }
+}
