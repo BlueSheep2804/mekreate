@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "@": {
+      "item": "mekanism:steel_casing"
+    },
+    "A": {
+      "tag": "c:ingots/brass"
+    },
+    "C": {
+      "item": "mekcre:contraption_control_circuit"
+    },
+    "W": {
+      "item": "create:crushing_wheel"
+    }
+  },
+  "pattern": [
+    "ACA",
+    "W@W",
+    "ACA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekcre:wheel_crusher"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "@": {
+      "item": "mekanism:steel_casing"
+    },
+    "A": {
+      "item": "create:andesite_alloy"
+    },
+    "B": {
+      "item": "create:andesite_alloy_block"
+    },
+    "C": {
+      "item": "mekcre:kinetic_control_circuit"
+    },
+    "G": {
+      "item": "create:large_cogwheel"
+    }
+  },
+  "pattern": [
+    "AGA",
+    "C@C",
+    "ABA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mekcre:mekanical_mill"
+  }
+}

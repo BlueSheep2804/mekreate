@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_mekcre_kinetic_control_circuit": {
+      "conditions": {
+        "items": [
+          {
+            "items": "mekcre:kinetic_control_circuit"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "mekcre:mekanical_mill"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_mekcre_kinetic_control_circuit"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "mekcre:mekanical_mill"
+    ]
+  }
+}
